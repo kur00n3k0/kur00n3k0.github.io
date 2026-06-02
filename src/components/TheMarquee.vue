@@ -1,15 +1,21 @@
 <script setup lang="ts">
 withDefaults(defineProps<{ items?: string[] }>(), {
-  items: () => ['MASK ON', 'DEDSEC', 'ACCESS GRANTED', 'TRUST NO BINARY', 'STAY ANON', 'WE ARE LEGION'],
+  items: () => [
+    'MASK ON',
+    'SAVETY IS AN ILUSION',
+    'ACCESS GRANTED',
+    'TRUST NO ONE',
+    'STAY ANON',
+    'STAY SAFE',
+    'FIGHT FOR YOUR RIGHTS',
+  ],
 })
 </script>
 
 <template>
   <div class="marq">
     <i>
-      <template v-for="(x, i) in [...items, ...items]" :key="i">
-        <b>◼</b> {{ x }} &nbsp;
-      </template>
+      <template v-for="(x, i) in [...items, ...items]" :key="i"> <b>◼</b> {{ x }} &nbsp; </template>
     </i>
   </div>
 </template>

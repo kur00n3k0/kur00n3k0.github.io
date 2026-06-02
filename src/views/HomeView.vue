@@ -11,8 +11,10 @@ import BlinkCursor from '@/components/BlinkCursor.vue'
 import TheMarquee from '@/components/TheMarquee.vue'
 
 const router = useRouter()
-const pinned = ARTICLES[0]!
-const minis = ARTICLES.slice(1, 5)
+const pinned = ARTICLES.find((a) => a.pinned) ?? ARTICLES[0]!
+const minis = ARTICLES.filter((a) => a !== pinned)
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 4)
 </script>
 
 <template>
