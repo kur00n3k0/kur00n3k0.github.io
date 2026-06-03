@@ -10,6 +10,7 @@ import BlinkCursor from '@/components/BlinkCursor.vue'
 
 const router = useRouter()
 const tag = ref('all')
+const year = ref('all')
 const q = ref('')
 
 const tags = computed(() => {
@@ -18,9 +19,15 @@ const tags = computed(() => {
   return [['all', ARTICLES.length], ...Object.entries(m).sort((x, y) => y[1] - x[1])] as [string, number][]
 })
 
+const years = computed(() => {
+  const ys = [...new Set(ARTICLES.map((a) => a.date.slice(0, 4)))].sort((a, b) => Number(b) - Number(a))
+  return ['all', ...ys]
+})
+
 const rows = computed(() =>
   ARTICLES.filter((a) =>
     (tag.value === 'all' || a.tag === tag.value) &&
+    (year.value === 'all' || a.date.startsWith(year.value)) &&
     (q.value === '' || a.title.toLowerCase().includes(q.value.toLowerCase()) || a.tag.includes(q.value.toLowerCase()))
   )
 )
@@ -79,9 +86,13 @@ const rows = computed(() =>
 
         <SitePanel label="// filter::year">
           <div style="padding:13px;display:flex;gap:7px;flex-wrap:wrap">
-            <span class="tag on">2026</span>
-            <span class="tag">2025</span>
-            <span class="tag">2024</span>
+            <span
+              v-for="y in years" :key="y"
+              class="tag"
+              :class="{ on: year === y }"
+              style="cursor:pointer"
+              @click="year = y"
+            >{{ y }}</span>
           </div>
         </SitePanel>
       </div>
@@ -100,7 +111,7 @@ const rows = computed(() =>
           <div class="ascii" style="color:var(--faint);display:inline-block">¯\_(ツ)_/¯</div>
           <div class="mono-xs" style="margin-top:10px">
             no entries match.
-            <span class="acc" style="cursor:pointer" @click="tag = 'all'; q = ''">reset filters</span>
+            <span class="acc" style="cursor:pointer" @click="tag = 'all'; year = 'all'; q = ''">reset filters</span>
           </div>
         </div>
 

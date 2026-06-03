@@ -1,15 +1,20 @@
 <script setup lang="ts">
 defineProps<{ small?: boolean }>()
 
-const SKULL = `        .-=========-.
-      /   _     _   \\
-     |   (o)   (o)   |
-     |       ^       |
-     |    \\_____/    |
-      \\  | | | | |  /
-       \\  '-----'  /
-        '-._____.-'
-          |__|__|`
+const SKULL = `
+           ______
+        .-"      "-.
+       /            \\
+      |              |
+      |,  .-.  .-.  ,|
+      | )(__/  \\__)( |
+      |/     /       |
+      (_     ^^     _)
+       \\__|IIIIII|__/
+        | \\IIIIII/ |
+        \\          /
+         \`--------\`
+`
 
 const SKULL_SM = `   .-=====-.
   /  _   _  \\
@@ -21,5 +26,5 @@ const SKULL_SM = `   .-=====-.
 </script>
 
 <template>
-  <pre class="ascii glow" style="margin:0">{{ small ? SKULL_SM : SKULL }}</pre>
+  <pre class="ascii glow" style="margin: 0">{{ small ? SKULL_SM : SKULL }}</pre>
 </template>
