@@ -142,11 +142,11 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: 'Starting from version 7.6.x, FortiOS drops SSL-VPN entirely. SSL-VPN had design-level vulnerabilities that were baked into the protocol itself (as expected from Fortinet\'s track record), so they finally decided to go all-in on IPSec. If you\'re running anything below 7.6.x and planning to upgrade, migrating your VPN configs is not optional.',
+        x: "Starting from version 7.6.x, FortiOS drops SSL-VPN entirely. SSL-VPN had design-level vulnerabilities that were baked into the protocol itself (as expected from Fortinet's track record), so they finally decided to go all-in on IPSec. If you're running anything below 7.6.x and planning to upgrade, migrating your VPN configs is not optional.",
       },
       {
         t: 'p',
-        x: 'The good news: IPSec is the right call. The bad news: FortiClient still sucks, and there are enough gotchas in the migration to ruin someone\'s Friday. This guide covers FortiClient as a dialup client, the standard remote access use case.',
+        x: "The good news: IPSec is the right call. The bad news: FortiClient still sucks, and there are enough gotchas in the migration to ruin someone's Friday. This guide covers FortiClient as a dialup client, the standard remote access use case.",
       },
       {
         t: 'h',
@@ -176,7 +176,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: 'Fortinet provides a VPN Wizard that generates the Phase 1, Phase 2, address objects, and firewall policies automatically. Use it for the initial setup. It\'s the fastest path and it generates sane defaults. Manual config comes later when you need to tune things.',
+        x: "Fortinet provides a VPN Wizard that generates the Phase 1, Phase 2, address objects, and firewall policies automatically. Use it for the initial setup. It's the fastest path and it generates sane defaults. Manual config comes later when you need to tune things.",
       },
       {
         t: 'p',
@@ -199,7 +199,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: 'On the final Review page, the wizard shows every object it\'s about to create. Check it before hitting Submit. After creation, verify under VPN > IPsec Tunnels that Phase 1 and Phase 2 entries are both present.',
+        x: "On the final Review page, the wizard shows every object it's about to create. Check it before hitting Submit. After creation, verify under VPN > IPsec Tunnels that Phase 1 and Phase 2 entries are both present.",
       },
       {
         t: 'h',
@@ -207,7 +207,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: 'Phase 1 is the IKE negotiation, where both sides agree on how to authenticate and establish the control channel. For FortiClient as a dialup client, the FortiGate acts as a responder with a dynamic Phase 1 that accepts incoming connections from any IP. Here\'s the CLI representation of what the wizard builds:',
+        x: "Phase 1 is the IKE negotiation, where both sides agree on how to authenticate and establish the control channel. For FortiClient as a dialup client, the FortiGate acts as a responder with a dynamic Phase 1 that accepts incoming connections from any IP. Here's the CLI representation of what the wizard builds:",
       },
       {
         t: 'code',
@@ -222,7 +222,10 @@ export const ARTICLES: Article[] = [
           { t: 'out', x: '        set peertype any' },
           { t: 'out', x: '        set net-device enable' },
           { t: 'out', x: '        set mode-cfg enable' },
-          { t: 'out', x: '        set proposal aes128-sha256 aes256-sha256 aes128-sha1 aes256-sha1' },
+          {
+            t: 'out',
+            x: '        set proposal aes128-sha256 aes256-sha256 aes128-sha1 aes256-sha1',
+          },
           { t: 'out', x: '        set dpd on-idle' },
           { t: 'out', x: '        set xauthtype auto' },
           { t: 'out', x: '        set authusrgrp "VPN-Users"' },
@@ -256,7 +259,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: 'Phase 2 negotiates the actual data tunnel, the encryption for your traffic and the selectors that define what flows through. For full tunnel (all client traffic through the FortiGate), the selector is 0.0.0.0/0. For split tunnel, you\'d list only the subnets that should go through the VPN.',
+        x: "Phase 2 negotiates the actual data tunnel, the encryption for your traffic and the selectors that define what flows through. For full tunnel (all client traffic through the FortiGate), the selector is 0.0.0.0/0. For split tunnel, you'd list only the subnets that should go through the VPN.",
       },
       {
         t: 'code',
@@ -266,7 +269,10 @@ export const ARTICLES: Article[] = [
           { t: 'out', x: 'config vpn ipsec phase2-interface' },
           { t: 'out', x: '    edit "FC-VPN"' },
           { t: 'out', x: '        set phase1name "FC-VPN"' },
-          { t: 'out', x: '        set proposal aes128-sha1 aes256-sha1 aes128-sha256 aes256-sha256 aes128gcm aes256gcm chacha20poly1305' },
+          {
+            t: 'out',
+            x: '        set proposal aes128-sha1 aes256-sha1 aes128-sha256 aes256-sha256 aes128gcm aes256gcm chacha20poly1305',
+          },
           { t: 'out', x: '    next' },
           { t: 'out', x: 'end' },
         ],
@@ -330,7 +336,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: 'For full tunnel, add a VPN-to-WAN policy with NAT enabled. Without this, clients in full-tunnel mode connect successfully and then have no internet access, a classic FortiClient mystery that wastes an hour of everyone\'s life:',
+        x: "For full tunnel, add a VPN-to-WAN policy with NAT enabled. Without this, clients in full-tunnel mode connect successfully and then have no internet access, a classic FortiClient mystery that wastes an hour of everyone's life:",
       },
       {
         t: 'code',
@@ -363,7 +369,7 @@ export const ARTICLES: Article[] = [
         t: 'list',
         x: [
           'VPN Type → IPsec VPN',
-          'Remote Gateway → your FortiGate\'s public IP or FQDN',
+          "Remote Gateway → your FortiGate's public IP or FQDN",
           'Authentication Method → Pre-Shared Key',
           'Pre-Shared Key → exact same PSK set on the FortiGate',
           'Advanced Settings > Phase 1 Local ID → leave empty unless you set a specific peerid on the FortiGate; if you did, it must match exactly',
@@ -381,8 +387,14 @@ export const ARTICLES: Article[] = [
           { t: 'prompt', x: 'C:\\>' },
           { t: 'cmd', x: 'route print' },
           { t: 'out', x: '...' },
-          { t: 'out', x: '  0.0.0.0    0.0.0.0    10.10.10.1    10.10.10.10    25   ← full tunnel default route' },
-          { t: 'out', x: '  10.0.0.0   255.0.0.0  10.10.10.1    10.10.10.10    25   ← or split tunnel subnet' },
+          {
+            t: 'out',
+            x: '  0.0.0.0    0.0.0.0    10.10.10.1    10.10.10.10    25   ← full tunnel default route',
+          },
+          {
+            t: 'out',
+            x: '  10.0.0.0   255.0.0.0  10.10.10.1    10.10.10.10    25   ← or split tunnel subnet',
+          },
         ],
       },
       {
@@ -447,7 +459,10 @@ export const ARTICLES: Article[] = [
         lines: [
           { t: 'cmd', x: 'diagnose vpn tunnel dialup-list FC-VPN' },
           { t: 'out', x: 'name=FC-VPN ver=1 serial=1 <wan-ip>:4500-><client-ip>:4500 tun_id=<id>' },
-          { t: 'out', x: 'bound_if=<if_id> lgwy=static/1 tun=intf/0 mode=dial_inst/2 encap=none/576 ...' },
+          {
+            t: 'out',
+            x: 'bound_if=<if_id> lgwy=static/1 tun=intf/0 mode=dial_inst/2 encap=none/576 ...',
+          },
         ],
       },
       {
@@ -461,7 +476,7 @@ export const ARTICLES: Article[] = [
           'Ports 500 and 4500: if you have a VIP forwarding either of these ports to an internal host, IKE negotiation fails. Remove the VIP or change the admin port under System > Settings.',
           'IKEv2 required for FortiClient 7.4.4+: newer FortiClient versions dropped IKEv1 support. The wizard defaults to IKEv1 aggressive mode. If your clients are on FortiClient 7.4.4 or newer, change the IKE version to Version 2 in the Phase 1 settings.',
           'UDP blocked at client site: if UDP 500/4500 is blocked, enable TCP transport in Phase 1. The default IKE TCP port is 443. Change it under System > Settings if 443 conflicts with HTTPS admin access on the same interface.',
-          'Google meets don\'t let you stablish a connection. So if you are using Google meets when trying to connect to the tunnel, disconnect from the call first, otherwise the tunnel will not be established.'
+          "Google meets don't let you stablish a connection. So if you are using Google meets when trying to connect to the tunnel, disconnect from the call first, otherwise the tunnel will not be established.",
         ],
       },
       {
@@ -477,6 +492,58 @@ export const ARTICLES: Article[] = [
           { t: 'cmd', x: '    set ike-tcp-port 443' },
           { t: 'cmd', x: 'end' },
           { t: 'ok', x: 'Done. IKE will now encapsulate over TCP/443.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: '0x03',
+    slug: 'post-skel',
+    tag: 'skel',
+    date: '2026.06.03',
+    mins: 0,
+    title: 'Post skel',
+    dek: 'Skeleton of all posts',
+    toc: ['Header 0x01', 'Header 0x02'],
+    body: [
+      {
+        t: 'h',
+        x: 'Header 0x01',
+      },
+      {
+        t: 'p',
+        x: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.',
+      },
+      {
+        t: 'h',
+        x: 'Header 0x02',
+      },
+      {
+        t: 'list',
+        x: ['Item 0x01', 'Item 0x02', 'Item 0x03', 'Item 0x04', 'Item 0x05'],
+      },
+      {
+        t: 'code',
+        label: 'hello_world.asm',
+        lines: [
+          { t: 'cmd', x: 'cat hello.asm' },
+          { t: 'prompt', x: 'global _start' },
+          { t: 'prompt', x: '' },
+          { t: 'prompt', x: 'section .data' },
+          { t: 'prompt', x: '    hello_text: db "Hello, world!",0x0a' },
+          { t: 'prompt', x: '    text_len: equ $ - hello_text' },
+          { t: 'prompt', x: '' },
+          { t: 'prompt', x: 'section .text' },
+          { t: 'prompt', x: '_start:' },
+          { t: 'prompt', x: '    mov rax, 1' },
+          { t: 'prompt', x: '    mov rdi, 1' },
+          { t: 'prompt', x: '    mov rsi, hello_text' },
+          { t: 'prompt', x: '    mov rdx, text_len' },
+          { t: 'prompt', x: '    syscall' },
+          { t: 'prompt', x: '' },
+          { t: 'prompt', x: '    mov rax, 60' },
+          { t: 'prompt', x: '    xor rdi, rdi' },
+          { t: 'prompt', x: '    syscall' },
         ],
       },
     ],
