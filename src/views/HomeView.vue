@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ARTICLES } from '@/data/articles'
 import StencilText from '@/components/StencilText.vue'
@@ -9,12 +10,32 @@ import AsciiRule from '@/components/AsciiRule.vue'
 import SitePanel from '@/components/SitePanel.vue'
 import BlinkCursor from '@/components/BlinkCursor.vue'
 import TheMarquee from '@/components/TheMarquee.vue'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 const router = useRouter()
 const pinned = ARTICLES.find((a) => a.pinned) ?? ARTICLES[0]!
 const minis = ARTICLES.filter((a) => a !== pinned)
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 4)
+
+const pgpBlock = ref<InstanceType<typeof CodeBlock>>()
+const pgpLines = [
+  { t: 'prompt' as const, x: '-----BEGIN PGP PUBLIC KEY BLOCK-----' },
+  { t: 'prompt' as const, x: '' },
+  { t: 'prompt' as const, x: 'xjMEZmyHexYJKwYBBAHaRw8BAQdA5P6AZw7SiBH9qWxUbQc0m96hfrG+qgD/' },
+  { t: 'prompt' as const, x: 'op4t3EqbyV3NL200c2gxbG9AcHJvdG9ubWFpbC5jb20gPG00c2gxbG9AcHJv' },
+  { t: 'prompt' as const, x: 'dG9ubWFpbC5jb20+wowEEBYKAD4FgmZsh3sECwkHCAmQCPSjD43h3wIDFQgK' },
+  { t: 'prompt' as const, x: 'BBYAAgECGQECmwMCHgEWIQT7MKz5MRKFxfDW4XAI9KMPjeHfAgAAetkA/3si' },
+  { t: 'prompt' as const, x: '2bXsXEXtykWlmCrp8LkiymqGu49GO5OkVE92d920AP0SP1yQwDKGadIsviw6' },
+  { t: 'prompt' as const, x: '2S11fwaIdb+bkKYB8AZ1MbhaD844BGZsh3sSCisGAQQBl1UBBQEBB0Dh97my' },
+  { t: 'prompt' as const, x: 'RsLcM+yzX87QvmhtFeXC0kOkUdyUayKUwGT0MQMBCAfCeAQYFgoAKgWCZmyH' },
+  { t: 'prompt' as const, x: 'ewmQCPSjD43h3wICmwwWIQT7MKz5MRKFxfDW4XAI9KMPjeHfAgAAdKEBANIM' },
+  { t: 'prompt' as const, x: 'TncN8yGLoRnqz7Xo/9Mzl5a/j/g1aSFVq1bLEmlzAP4k+nHtE9/YzwrO9CJN' },
+  { t: 'prompt' as const, x: 'esolfGSSqWXm3aAa22xK8W/aBg==' },
+  { t: 'prompt' as const, x: '=2s0n' },
+  { t: 'prompt' as const, x: '' },
+  { t: 'prompt' as const, x: '-----END PGP PUBLIC KEY BLOCK-----' },
+]
 </script>
 
 <template>
@@ -187,8 +208,12 @@ const minis = ARTICLES.filter((a) => a !== pinned)
           <div style="padding: 15px">
             <div class="acc" style="font-size: 13px; margin-bottom: 6px">kur0n3k0</div>
             <div class="dim mono-xs" style="line-height: 1.9">
-              pgp 0xA1B2 C3D4 E5F6<br />sha256 verified · self-hosted<br />no trackers · no js
-              telemetry
+              <span
+                class="acc"
+                style="cursor: pointer; text-decoration: underline; text-underline-offset: 3px"
+                @click="pgpBlock?.open()"
+                >[ PGP ]</span
+              ><br />sha256 verified · self-hosted<br />no trackers · no js telemetry
             </div>
           </div>
         </SitePanel>
@@ -215,4 +240,7 @@ last sync .. 2026.06.01</pre
       </div>
     </div>
   </div>
+
+  <!-- PGP key modal (no visible panel, modal only) -->
+  <CodeBlock ref="pgpBlock" :no-panel="true" :lines="pgpLines" label="PGP PUBLIC KEY" />
 </template>

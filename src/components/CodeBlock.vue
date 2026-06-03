@@ -3,7 +3,7 @@ import { ref, computed, onUnmounted } from 'vue'
 import type { CodeLine } from '@/data/articles'
 import SitePanel from './SitePanel.vue'
 
-const props = defineProps<{ label?: string; lines: CodeLine[] }>()
+const props = defineProps<{ label?: string; lines: CodeLine[]; noPanel?: boolean }>()
 
 const expanded = ref(false)
 const copied = ref(false)
@@ -21,25 +21,25 @@ const cumChars = computed(() => {
   return r
 })
 
-const totalChars = computed(() => cumChars.value[props.lines.length])
+const totalChars = computed(() => cumChars.value[props.lines.length] ?? 0)
 
 // Index of the line currently being typed (-1 when done)
 const currentLine = computed(() => {
   if (typewriterDone.value) return -1
   for (let i = 0; i < props.lines.length; i++) {
-    if (visibleChars.value < cumChars.value[i + 1]) return i
+    if (visibleChars.value < (cumChars.value[i + 1] ?? 0)) return i
   }
   return -1
 })
 
 function lineVisible(i: number) {
   if (!typewriterStarted.value) return false
-  return typewriterDone.value || visibleChars.value >= cumChars.value[i]
+  return typewriterDone.value || visibleChars.value >= (cumChars.value[i] ?? 0)
 }
 
 function lineSlice(i: number, text: string) {
   if (typewriterDone.value) return text
-  return text.slice(0, Math.max(0, visibleChars.value - cumChars.value[i]))
+  return text.slice(0, Math.max(0, visibleChars.value - (cumChars.value[i] ?? 0)))
 }
 
 function startTypewriter() {
@@ -62,7 +62,7 @@ function stopTypewriter() {
     typewriterTimer = null
   }
   typewriterStarted.value = true
-  visibleChars.value = totalChars.value
+  visibleChars.value = totalChars.value ?? 0
   typewriterDone.value = true
 }
 
@@ -93,6 +93,8 @@ function onKey(e: KeyboardEvent) {
   if (e.key === 'Escape') close()
 }
 
+defineExpose({ open })
+
 onUnmounted(() => {
   document.body.style.overflow = ''
   window.removeEventListener('keydown', onKey)
@@ -102,7 +104,7 @@ onUnmounted(() => {
 
 <template>
   <!-- ── Compact inline panel ── -->
-  <SitePanel raise style="margin: 20px 0">
+  <SitePanel v-if="!noPanel" raise style="margin: 20px 0">
     <div class="panel-h">
       <span><span class="acc">▸</span> terminal — {{ label ?? 'sh' }}</span>
       <div style="margin-left: auto; display: flex; gap: 6px">
