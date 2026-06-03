@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import { ARTICLES } from '@/data/articles'
 import StencilText from '@/components/StencilText.vue'
 import GlitchSpan from '@/components/GlitchSpan.vue'
+import ScrambleText from '@/components/ScrambleText.vue'
 import HeroImage from '@/components/HeroImage.vue'
 import AsciiRule from '@/components/AsciiRule.vue'
 import SitePanel from '@/components/SitePanel.vue'
@@ -27,10 +28,10 @@ const minis = ARTICLES.filter((a) => a !== pinned)
             We are legion // ethical hacking field notes
           </div>
           <StencilText :size="92" style="margin-bottom: 2px">
-            <GlitchSpan text="DEAD BYTE" />
+            <ScrambleText text="DEAD BYTE" :delay="250" />
           </StencilText>
           <StencilText :size="92" class="acc" :glow="true">
-            <GlitchSpan text="JOURNAL" />
+            <ScrambleText text="JOURNAL" :delay="820" />
           </StencilText>
           <p class="fg2" style="margin-top: 20px; max-width: 460px; font-size: 14.5px">
             Reverse engineering, rogue hardware and red-team dossiers — pulled apart, documented,
