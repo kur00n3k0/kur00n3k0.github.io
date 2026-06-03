@@ -31,6 +31,17 @@ body { font-family: 'JetBrains Mono', monospace; }
   position: relative;
   overflow-x: hidden;
 }
+.site::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('../background.jpg') right center / auto 100% no-repeat;
+  filter: grayscale(1) contrast(.8);
+  opacity: .07;
+  pointer-events: none;
+  z-index: 0;
+}
+.site > * { position: relative; z-index: 1; }
 .site * { box-sizing: border-box; }
 .site ::selection { background: var(--acc); color: #06120a; }
 

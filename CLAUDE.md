@@ -67,8 +67,7 @@ No active Pinia stores. The `src/stores/counter.ts` scaffold remains but is unus
 
 All terminal styling lives in `src/assets/main.css` (imported via `src/main.ts`). It defines:
 - CSS custom properties under `.site` (`--bg`, `--fg`, `--acc`, `--line`, `--bit`, `--mono`, etc.)
-- Global `--acc` on `:root` (overridden by the tweaks store at runtime)
-- Every utility class the components use (`.glow`, `.dim`, `.acc`, `.stencil`, `.glitch`, `.cur`, `.panel`, `.ticks`, `.tag`, `.btn`, `.tile`, `.arow`, `.boot`, `.marq`, `.crt`, `.twk-*`)
+- Every utility class the components use (`.glow`, `.dim`, `.acc`, `.stencil`, `.glitch`, `.cur`, `.panel`, `.ticks`, `.tag`, `.btn`, `.tile`, `.arow`, `.boot`, `.marq`, `.crt`)
 
 The root element in `App.vue` carries `class="site"` — all CSS variables and scoped styles depend on this.
 
@@ -76,9 +75,20 @@ Fonts (JetBrains Mono + VT323) are loaded via `<link>` in `index.html`.
 
 ### Key component patterns
 
-- **`GlitchSpan`** — wraps text in `.glitch[data-text]`; the CSS `::before`/`::after` pseudo-elements read `data-text` for the glitch layers. Pass `:block="true"` when the text needs to wrap (e.g. article H1).
+- **`GlitchSpan`** — pure CSS glitch effect. Wraps text in `.glitch[data-text]`; `::before`/`::after` pseudo-elements read `data-text` for the glitch layers. Pass `:block="true"` when text needs to wrap (e.g. article H1).
+- **`ScrambleText`** — same `.glitch[data-text]` output as `GlitchSpan` but animates characters on mount (scramble → reveal). Accepts `delay` (ms before starting) and `block` props.
+- **`StencilText`** — `<div class="stencil">` wrapper for large bitmap headings. Props: `size` (font-size in px, default 48) and `glow` (boolean).
 - **`SitePanel`** — renders `.panel.ticks` with corner-tick pseudo-elements; a `<span class="tk">` child provides the bottom-corner ticks (the CSS targets `.ticks > .tk`).
+- **`BootOverlay`** — full-screen boot animation that plays once per browser session (tracked via `sessionStorage.dbj_booted`). Clicking anywhere skips it. `App.vue` listens for the `done` emit then sets the flag.
 - **`ArticleView`** — computes `body` as `AnnotatedBlock[]` (adds `secId` to heading blocks) so the template never mutates state during render. TOC scroll-spy listens on `window scroll`.
+
+### Article authoring conventions
+
+- **IDs** follow the `0xNN` hex pattern (`0x01`, `0x02`, …).
+- **`pinned`** — only one article should have `pinned: true`; `HomeView` uses `ARTICLES.find(a => a.pinned) ?? ARTICLES[0]` for the hero tile.
+- **`toc[]` and `h` blocks must stay in sync** — `ArticleView` auto-generates `secId` as `sec-0`, `sec-1`, … from heading blocks in order. The `toc` array is indexed the same way, so every `toc` entry needs a corresponding `{ t: 'h', … }` block and vice versa.
+- **`LEGAL` constant** — `articles.ts` exports a pre-built `note` block with the authorized-use disclaimer. Spread it into `body` rather than duplicating the text.
+- **`CodeLine.p`** — when `t: 'prompt'`, the `p` field overrides the default `$` prefix in `CodeBlock` (use for custom shell prompts like `>>>` or `root@kali`).
 
 ### Linting pipeline
 
