@@ -40,7 +40,7 @@ const minis = ARTICLES.filter((a) => a !== pinned)
             <span class="btn" @click="router.push('/archive')">cd ./archive</span>
           </div>
         </div>
-        <div style="border-left:1px solid var(--line);background:var(--bg3);padding:20px 30px;
+        <div class="hero-skull" style="border-left:1px solid var(--line);background:var(--bg3);padding:20px 30px;
           display:flex;flex-direction:column;justify-content:center;gap:16px;flex-shrink:0">
           <AsciiSkull style="font-size:14px" />
           <div class="dim mono-xs" style="text-align:center;letter-spacing:.18em">// MASK ON</div>
@@ -57,10 +57,10 @@ const minis = ARTICLES.filter((a) => a !== pinned)
         <span class="tag btn" @click="router.push('/archive')">view all ({{ ARTICLES.length }}) ▸</span>
       </div>
       <AsciiRule style="margin-bottom:20px" />
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-auto-rows:minmax(0,auto);gap:16px">
+      <div class="bull-grid">
 
         <!-- big tile (pinned) -->
-        <a class="tile" style="grid-row:span 2;justify-content:space-between;padding:22px 24px"
+        <a class="tile tile-pinned" style="grid-row:span 2;justify-content:space-between;padding:22px 24px"
            @click="router.push('/article/' + pinned.id)">
           <span class="num-bg">{{ pinned.id.slice(-2) }}</span>
           <div style="display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1">
@@ -104,7 +104,7 @@ const minis = ARTICLES.filter((a) => a !== pinned)
     <!-- footer -->
     <div class="wrap" style="padding:46px 28px 60px">
       <AsciiRule :double="true" style="margin-bottom:22px" />
-      <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:22px">
+      <div class="foot-grid">
         <SitePanel label="// identity">
           <div style="padding:15px">
             <div class="acc" style="font-size:13px;margin-bottom:6px">kur0n3k0</div>
@@ -124,7 +124,7 @@ last sync .. 2026.06.01</pre>
         <SitePanel label="// channels">
           <div style="padding:15px">
             <div class="dim mono-xs" style="line-height:2.1">
-              ▸ /rss.xml<br />▸ matrix : @kur0n3k0<br />▸ mirror : .onion
+              ▸ /rss.xml<br />▸ matrix : @kur0n3k0<br />▸ mirror : .onion<br />▸ monero: 0xffffffff
             </div>
           </div>
         </SitePanel>

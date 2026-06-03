@@ -64,10 +64,10 @@ watch(() => props.id, () => { active.value = 0; window.scrollTo(0, 0) })
       <span> / {{ article.slug }}.md</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:210px 1fr;gap:28px;align-items:start">
+    <div class="art-layout">
 
       <!-- toc + meta rail -->
-      <div style="display:grid;gap:16px;position:sticky;top:70px">
+      <div class="art-sidebar"><div class="art-sidebar-inner">
         <SitePanel label="// contents">
           <div style="padding:13px;display:grid;gap:4px">
             <div
@@ -93,7 +93,7 @@ sha256 · 9f3a…b1
 pgp .... verified</pre>
           </div>
         </SitePanel>
-      </div>
+      </div></div>
 
       <!-- document window -->
       <div class="panel ticks">
