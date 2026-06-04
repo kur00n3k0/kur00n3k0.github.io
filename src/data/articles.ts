@@ -548,6 +548,358 @@ export const ARTICLES: Article[] = [
       },
     ],
   },
+  {
+    id: '0x04',
+    slug: 'brazil-bureaucracy',
+    tag: 'culture',
+    date: '2026.02.10',
+    mins: 3,
+    title: 'Brazil: A Punch of Ignorance and Endless Bureaucracy',
+    dek: 'On how regulatory bodies like Anatel kill innovation, block useful devices with no technical basis, and keep Brazilians alienated from their own freedom.',
+    toc: [],
+    body: [
+      {
+        t: 'p',
+        x: "You must already know that Brazil is the country of bureaucracy. If you don't, maybe it's time to open your eyes and see reality. Every year more and more companies give up doing business in the Brazilian market (like Google with the Pixel) due to the high demands of regulatory bodies like Anatel, whose goal is to show who's in charge — creating an illusory image that Brazil is a rigorous, well-ordered country — which ends up pushing away great opportunities for technological growth and development.",
+      },
+      {
+        t: 'p',
+        x: "It's been a while since we've seen Brazilian bureaucracy reach levels that go beyond real necessity, directly and indirectly affecting the life of every Brazilian. The real reason behind all this remains unknown, but one thing is certain: it kills our market and makes life very difficult for many enthusiasts and researchers.",
+      },
+      {
+        t: 'p',
+        x: 'Anatel has been blocking various interesting devices with ignorant and baseless arguments. The case of the Flipper Zero is a perfect example — labeled a "threat to public safety" for having radio capabilities that supposedly allowed a criminal to "steal your car" or "open your gate." Something that in practice is not possible.',
+      },
+      {
+        t: 'p',
+        x: "Anatel most likely didn't bother to look away from fake TikTok trends and conduct actual studies about the device — studies that would have uncovered simple concepts like basic RF, encryption, rolling keys, 5G bands. Things any curious kid knows. Things they apparently don't.",
+      },
+      {
+        t: 'p',
+        x: "This may be the result of placing people incapable of understanding what they're doing into these agencies — people who entered through public service exams that serve no purpose other than funneling unqualified individuals with no real knowledge of the work they perform day to day.",
+      },
+      {
+        t: 'p',
+        x: "Brazil is a country where rebellion and opposition to the state becomes more necessary every day, so we don't become its accessories. Brazilians need to fight harder for their freedom and understand how alienated they are by speeches of diplomacy, false order, and peace. The government doesn't want your well-being — it wants your belongings. The Brazilian people grow more lost and alienated every day, and that cannot continue.",
+      },
+      {
+        t: 'p',
+        x: "This post is nothing technical — no tutorial, no news. It's an appeal for you, the reader, to reflect on your role in Brazilian society and understand once and for all that you are being used and deprived of your freedom and happiness with every breath.",
+      },
+    ],
+  },
+  {
+    id: '0x05',
+    slug: 're-tools-malware',
+    tag: 'malware, re, tools',
+    date: '2025.04.05',
+    mins: 5,
+    title: 'A Quick Dive Into RE Tools for Malware Analysis',
+    dek: 'Static and dynamic tools every malware analyst needs — from strings and binwalk to Ghidra and REMnux.',
+    toc: ['Static Analysis', 'Dynamic Analysis', 'Advanced Frameworks', 'Bonus Resources'],
+    body: [
+      LEGAL,
+      {
+        t: 'p',
+        x: "Malware analysis and reverse engineering are no longer niche skills. As adversaries get more sophisticated, defenders need to be able to look inside the binaries they encounter. The right toolset matches the phase of investigation — you static-analyze first, dynamic-analyze second, and pull out the heavy frameworks when the simpler tools hit their ceiling.",
+      },
+      { t: 'h', x: 'Static Analysis' },
+      {
+        t: 'p',
+        x: "Static analysis means examining a binary without running it. These tools let you extract indicators, understand file structure, and disassemble code safely.",
+      },
+      {
+        t: 'list',
+        x: [
+          'strings — extracts readable character sequences from a binary. Great first pass for hardcoded URLs, registry keys, and other IOCs.',
+          'binwalk — analyzes firmware and extracts embedded files from binary images. Useful when a sample packages additional payloads.',
+          'exiftool — parses metadata from a wide range of file formats. Often reveals author info, creation timestamps, and origin clues.',
+          'peStudio — analyzes Windows PE files for suspicious indicators: imports, strings, entropy sections, and MITRE ATT&CK mappings.',
+          'objdump — disassembles executables. Part of GNU Binutils, available on every Linux install.',
+          'hexdump — displays raw binary data in hex and ASCII. Low-level but indispensable for spotting magic bytes and manual analysis.',
+        ],
+      },
+      { t: 'h', x: 'Dynamic Analysis' },
+      {
+        t: 'p',
+        x: 'Dynamic analysis runs the sample in a controlled environment and observes its behavior. Sandbox it or run it on an isolated VM — never on your daily machine.',
+      },
+      {
+        t: 'list',
+        x: [
+          'any.run — cloud-based interactive sandbox. Upload the sample and watch it execute in a real Windows environment without risking your own machine.',
+          'strace — traces system calls on Linux. Reveals what files a process opens, what network connections it makes, and what signals it receives.',
+          'ltrace — traces library calls. Complements strace for understanding higher-level behavior.',
+          'GDB + pwndbg — GNU Debugger with the pwndbg plugin. Enhanced output and commands for stepping through binaries and inspecting memory.',
+          'Sysinternals Suite — Windows monitoring tools (Process Monitor, Process Explorer, Autoruns). Essential for watching what a Windows sample does live.',
+        ],
+      },
+      { t: 'h', x: 'Advanced Frameworks' },
+      {
+        t: 'p',
+        x: "Ghidra is the NSA-developed open-source reverse engineering suite and my personal favorite. It handles disassembly and decompilation across multiple architectures, supports collaborative analysis, and has a plugin ecosystem. It's free, actively maintained, and comparable to IDA Pro for most analysis tasks.",
+      },
+      { t: 'h', x: 'Bonus Resources' },
+      {
+        t: 'list',
+        x: [
+          'Godbolt (compiler explorer) — paste source code and see the assembly output across different compilers and optimization levels. Useful for understanding what high-level code actually compiles to.',
+          'Dogbolt (decompiler explorer) — paste a binary and compare decompiler output from multiple tools side-by-side.',
+          'REMnux — a Linux VM preloaded with malware analysis tools. If you want a ready-to-go environment instead of installing everything manually, start here.',
+        ],
+      },
+    ],
+  },
+  {
+    id: '0x06',
+    slug: 'hacker-movies',
+    tag: 'culture',
+    date: '2023.02.23',
+    mins: 3,
+    title: 'Recommendations on Movies/Series About Hackers',
+    dek: "The films and series that shaped how I think about hacking — and why Mr. Robot is still the best thing on the subject.",
+    toc: ['Hackers (1995)', 'The Matrix', 'Mr. Robot', 'Who Am I'],
+    body: [
+      {
+        t: 'p',
+        x: "I always liked how hackers were represented in movies — even when the depiction was completely wrong. Some of these productions inspired me to get into cybersecurity in the first place. Here are the ones I recommend, along with what to actually take from each of them.",
+      },
+      {
+        t: 'note',
+        x: 'These are entertainment, not training. Real ethical hacking happens on contracted targets with written permission — nothing like what you see on screen.',
+      },
+      { t: 'h', x: 'Hackers (1995)' },
+      {
+        t: 'p',
+        x: "Probably one of the most famous hacker films. It's got Angelina Jolie, captures the 1980s underground culture, and features a deliberately exaggerated, almost cartoonish depiction of what hacking looks like. Don't watch it for technical accuracy — watch it for the culture and the energy. It's fun.",
+      },
+      { t: 'h', x: 'The Matrix' },
+      {
+        t: 'p',
+        x: "Essential viewing. The Matrix isn't really about hacking in the technical sense — it's about human resistance against machine control and a protagonist who fights threats inside a simulated digital world. The themes of systems, control, and breaking free from imposed realities resonate deeply in hacker culture.",
+      },
+      { t: 'h', x: 'Mr. Robot' },
+      {
+        t: 'p',
+        x: "The best series I've ever seen on this subject. Full stop. What sets it apart is the technical realism — developed with actual security professionals, using real tools, real commands, real attack techniques. Elliot runs actual exploits. The social engineering scenes are accurate. If you watch one thing from this list, make it this.",
+      },
+      { t: 'h', x: 'Who Am I' },
+      {
+        t: 'p',
+        x: "A German film focused heavily on social engineering within hacker culture. It starts confusing and takes a while to click, but it rewards patience. The way it portrays manipulation, identity, and the human element of hacking makes it worth seeing.",
+      },
+    ],
+  },
+  {
+    id: '0x07',
+    slug: 'chatgpt-academic',
+    tag: 'ai, tools',
+    date: '2023.02.23',
+    mins: 3,
+    title: "ChatGPT Can Be Good for Academic Research — If You Use It Right",
+    dek: "Using AI to blindly write your papers is lazy and self-defeating. Using it as a thinking partner isn't.",
+    toc: ['The Problem', "What It's Actually Good For", 'How I Use It'],
+    body: [
+      {
+        t: 'p',
+        x: "OpenAI's ChatGPT blew up in 2022 and everyone panicked about academic integrity. Teachers worried students would paste assignment prompts in and submit the output. Some do. That's not what I want to talk about.",
+      },
+      { t: 'h', x: 'The Problem' },
+      {
+        t: 'p',
+        x: "The copy-paste approach fails on two levels. First, it produces mediocre work — ChatGPT isn't consistently reliable across all topics, especially technical ones. Second, and more importantly, you don't learn anything. The gaps that creates will catch up with you later. OpenAI built an AI classifier to detect machine-generated text, but even they admit it \"is not fully reliable and should not be used as a primary decision-making tool.\" So it's not even a reliable cheat.",
+      },
+      { t: 'h', x: "What It's Actually Good For" },
+      {
+        t: 'list',
+        x: [
+          'Clarifying concepts you almost understand — sometimes a second explanation from a different angle is what makes things click.',
+          "Improving a paragraph you already wrote — paste your draft and ask for suggestions, then judge whether they're better.",
+          'Formatting and structure — especially useful for non-native speakers organizing complex technical arguments.',
+          'Code generation — useful, but verify everything for correctness and security issues before using it.',
+          'Resumes and cover letters — solid at this, and the stakes for "AI-ness" are lower.',
+        ],
+      },
+      { t: 'h', x: 'How I Use It' },
+      {
+        t: 'p',
+        x: "For my university cybersecurity research I use ChatGPT to sharpen my own writing and to get fast explanations of concepts I'm still building intuition on. I never submit what it produces directly. The goal is to understand better, write better — not to outsource the thinking. The moment you stop doing the thinking, you stop learning. And in cybersecurity, what you don't understand is exactly where your blind spots live.",
+      },
+    ],
+  },
+  {
+    id: '0x08',
+    slug: 'linux-distro-expertise',
+    tag: 'linux',
+    date: '2023.01.26',
+    mins: 3,
+    title: "Does the Linux Distro You Use Determine If You're a Noob or an Expert?",
+    dek: "No. And anyone who tells you otherwise is gatekeeping for ego reasons.",
+    toc: ['The Gatekeeping Problem', 'What Actually Matters'],
+    body: [
+      {
+        t: 'p',
+        x: "At the beginning of my journey on Linux I ran into people who looked down on others for using Ubuntu or Linux Mint, as if running Arch or Gentoo made them a better programmer or a more skilled sysadmin. I used to take that seriously. I don't anymore.",
+      },
+      { t: 'h', x: 'The Gatekeeping Problem' },
+      {
+        t: 'p',
+        x: "The distro you use doesn't matter and doesn't affect your expertise on Linux. The kernel is the same. The tools are the same. The concepts are the same. Arch teaches you more about how things fit together because you build more by hand — that's valuable — but it doesn't make you a better operator than someone who uses Ubuntu and spends that saved setup time actually learning the system.",
+      },
+      {
+        t: 'p',
+        x: "I ran Arch and Gentoo for a while. I learned a lot. I also spent too much time on breakage and configuration that had nothing to do with the skills I was actually trying to build. Now I keep a user-friendly distro as my daily driver and spin up the complex ones in VMs when I want to dig into something specific.",
+      },
+      { t: 'h', x: 'What Actually Matters' },
+      {
+        t: 'p',
+        x: "The only thing that determines Linux expertise is how much time you spend studying it and how deep you go. Not which distro you picked. Choose what fits your requirements, your available time, and your patience — and then spend your energy actually learning, not justifying your distro choice to strangers on the internet.",
+      },
+      {
+        t: 'list',
+        x: [
+          'Ubuntu / Linux Mint — solid daily drivers. Good community support, stable packages, low setup overhead.',
+          'Arch — teaches you how the system fits together. Great in a VM for learning; exhausting as a daily driver.',
+          'Gentoo — compile everything from source. Maximum control, maximum time cost. Worth trying once.',
+        ],
+      },
+    ],
+  },
+  {
+    id: '0x09',
+    slug: 'containers-vs-vms',
+    tag: 'containers, docker, linux',
+    date: '2023.01.24',
+    mins: 2,
+    title: 'Use Containers to Make Your Life Easier',
+    dek: "Why I stopped spinning up full VMs for every test and started using Docker instead.",
+    toc: ['VMs vs Containers', 'When to Use Which'],
+    body: [
+      {
+        t: 'p',
+        x: "I used to test applications inside a Virtual Machine. It worked, but it was slow — every new test meant installing a full OS, waiting for it to boot, and dealing with more hardware overhead than the application itself actually needed. Containers solved that for me.",
+      },
+      { t: 'h', x: 'VMs vs Containers' },
+      {
+        t: 'p',
+        x: "A Virtual Machine runs a complete guest OS managed by a Hypervisor (like Linux KVM or Microsoft Hyper-V). The hypervisor handles resource sharing across VMs on the same physical machine — this is how cloud providers like AWS run thousands of EC2 instances on shared hardware. VMs give you full isolation but come with the cost of running an entire operating system.",
+      },
+      {
+        t: 'p',
+        x: "Containers don't need a full OS. They share the host kernel and only bundle what the application itself needs. Docker is the modern standard, but the concept predates it — containers existed with LXC long before Docker was created. Docker built on top of that and made the tooling approachable.",
+      },
+      { t: 'h', x: 'When to Use Which' },
+      {
+        t: 'p',
+        x: "Containers are the right call for temporary applications, testing, or production environments where the setup should be simple and repeatable. VMs are still the right call when you need full OS isolation, a different kernel, or platform-specific behavior. Know the tradeoff and pick what your problem actually requires.",
+      },
+    ],
+  },
+  {
+    id: '0x0A',
+    slug: 'commodore64-linux',
+    tag: 'retro, linux',
+    date: '2023.01.23',
+    mins: 4,
+    title: 'How to Install a Commodore 64 Emulator on Linux',
+    dek: 'Installing VICE from source — so you can run the best-selling personal computer of 1982 on your modern machine.',
+    toc: ['Prerequisites', 'Downloading & Compiling', 'Installing'],
+    body: [
+      {
+        t: 'p',
+        x: "The Commodore 64 is an 8-bit computer introduced in 1982 by Commodore International. It uses a variant of the MOS 6502 microprocessor, the MOS 6510, has 64KB of RAM, and was the top-selling personal computer of its time at around $595. Originals show up on eBay around $200 today — not cheap, and importing one is worse. So: emulation.",
+      },
+      {
+        t: 'p',
+        x: "VICE is the emulator I use. It covers everything Commodore built: C64, C128, VIC-20, and more. Here's how to build and install it from source on Linux.",
+      },
+      { t: 'h', x: 'Prerequisites' },
+      {
+        t: 'p',
+        x: "Install these packages with your distro's package manager before starting:",
+      },
+      {
+        t: 'list',
+        x: ['GTK3 or SDL2 (GTK3 recommended)', 'flex', 'bison', 'dos2unix', 'xa65', 'texinfo', 'texlive', 'glew'],
+      },
+      { t: 'h', x: 'Downloading & Compiling' },
+      {
+        t: 'p',
+        x: 'Download vice-3.7.tar.gz from the VICE official site. Then extract, configure, and compile:',
+      },
+      {
+        t: 'code',
+        label: 'Build VICE from source',
+        lines: [
+          { t: 'cmd', x: 'tar xzvf vice-3.7.tar.gz' },
+          { t: 'cmd', x: 'cd vice-3.7' },
+          { t: 'cmd', x: './configure' },
+          { t: 'out', x: '... checking dependencies ...' },
+          { t: 'cmd', x: 'make -j$(nproc)' },
+          { t: 'out', x: '... compiling (time depends on your hardware) ...' },
+        ],
+      },
+      {
+        t: 'p',
+        x: "The -j$(nproc) flag tells make to use all available CPU cores. If ./configure errors out, a missing package is almost always the cause — read the error, find the package name for your distro, and install it.",
+      },
+      { t: 'h', x: 'Installing' },
+      {
+        t: 'code',
+        label: 'Install system-wide',
+        lines: [
+          { t: 'cmd', x: 'sudo make install' },
+          { t: 'ok', x: 'Done. Run x64sc to launch the C64 emulator.' },
+        ],
+      },
+      {
+        t: 'p',
+        x: "You can also skip the install and run binaries directly from the src/ folder — useful if you just want to try it without touching your system paths. For C64 software and ROM images, the Zimmers archive is the go-to resource: http://www.zimmers.net/anonftp/pub/cbm/",
+      },
+    ],
+  },
+  {
+    id: '0x0B',
+    slug: 'programming-languages-start',
+    tag: 'programming',
+    date: '2023.01.23',
+    mins: 3,
+    title: 'Programming Languages: Where to Start',
+    dek: 'Start with C. Understand memory. Everything else gets easier from there.',
+    toc: ['Know Thy Enemy', 'Start with C', 'Resources'],
+    body: [
+      {
+        t: 'p',
+        x: "A lot of people I know at university — and outside it — ask whether they should start with Python or JavaScript. My answer is always the same: start with C.",
+      },
+      { t: 'h', x: 'Know Thy Enemy' },
+      {
+        t: 'p',
+        x: "Sun Tzu's principle applies here: know the thing you're working with at its deepest level. A programmer who doesn't understand how code executes — how it touches registers, affects RAM, loads data into the CPU — will write worse software than one who does. High-level abstractions are great, but they're built on things that follow hard rules. Understanding those rules makes everything else legible.",
+      },
+      { t: 'h', x: 'Start with C' },
+      {
+        t: 'p',
+        x: "C was created by Dennis Ritchie in 1970. It's low-level enough to require you to manage memory yourself — allocating, freeing, working directly with memory addresses — but high-level enough that you can actually build things with it. That combination is exactly what makes it the right starting point.",
+      },
+      {
+        t: 'p',
+        x: "Learning C forces you to think about what the machine is actually doing. You allocate memory and you have to free it. You work with pointers. You see segfaults when you mess up. Once that mental model is solid, every other language makes more sense because you understand what's happening under the abstraction.",
+      },
+      {
+        t: 'p',
+        x: "Use a debugger early. GDB on Linux or Visual Studio's built-in debugger on Windows. Step through your code, watch what happens in memory, see how data structures actually look. This is where the real learning happens — not reading, but executing and observing.",
+      },
+      { t: 'h', x: 'Resources' },
+      {
+        t: 'list',
+        x: [
+          'Ben Eater (YouTube) — electronics and computer architecture from first principles. Builds a CPU on a breadboard.',
+          'Low Level Learning (YouTube) — C, assembly, and systems programming explained clearly.',
+        ],
+      },
+    ],
+  },
 ]
 
 export function byId(id: string): Article {
