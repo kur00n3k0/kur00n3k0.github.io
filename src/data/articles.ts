@@ -601,12 +601,12 @@ export const ARTICLES: Article[] = [
       LEGAL,
       {
         t: 'p',
-        x: "Malware analysis and reverse engineering are no longer niche skills. As adversaries get more sophisticated, defenders need to be able to look inside the binaries they encounter. The right toolset matches the phase of investigation — you static-analyze first, dynamic-analyze second, and pull out the heavy frameworks when the simpler tools hit their ceiling.",
+        x: 'Malware analysis and reverse engineering are no longer niche skills. As adversaries get more sophisticated, defenders need to be able to look inside the binaries they encounter. The right toolset matches the phase of investigation — you static-analyze first, dynamic-analyze second, and pull out the heavy frameworks when the simpler tools hit their ceiling.',
       },
       { t: 'h', x: 'Static Analysis' },
       {
         t: 'p',
-        x: "Static analysis means examining a binary without running it. These tools let you extract indicators, understand file structure, and disassemble code safely.",
+        x: 'Static analysis means examining a binary without running it. These tools let you extract indicators, understand file structure, and disassemble code safely.',
       },
       {
         t: 'list',
@@ -657,12 +657,12 @@ export const ARTICLES: Article[] = [
     date: '2023.02.23',
     mins: 3,
     title: 'Recommendations on Movies/Series About Hackers',
-    dek: "The films and series that shaped how I think about hacking — and why Mr. Robot is still the best thing on the subject.",
+    dek: 'The films and series that shaped how I think about hacking — and why Mr. Robot is still the best thing on the subject.',
     toc: ['Hackers (1995)', 'The Matrix', 'Mr. Robot', 'Who Am I'],
     body: [
       {
         t: 'p',
-        x: "I always liked how hackers were represented in movies — even when the depiction was completely wrong. Some of these productions inspired me to get into cybersecurity in the first place. Here are the ones I recommend, along with what to actually take from each of them.",
+        x: 'I always liked how hackers were represented in movies — even when the depiction was completely wrong. Some of these productions inspired me to get into cybersecurity in the first place. Here are the ones I recommend, along with what to actually take from each of them.',
       },
       {
         t: 'note',
@@ -686,7 +686,7 @@ export const ARTICLES: Article[] = [
       { t: 'h', x: 'Who Am I' },
       {
         t: 'p',
-        x: "A German film focused heavily on social engineering within hacker culture. It starts confusing and takes a while to click, but it rewards patience. The way it portrays manipulation, identity, and the human element of hacking makes it worth seeing.",
+        x: 'A German film focused heavily on social engineering within hacker culture. It starts confusing and takes a while to click, but it rewards patience. The way it portrays manipulation, identity, and the human element of hacking makes it worth seeing.',
       },
     ],
   },
@@ -696,7 +696,7 @@ export const ARTICLES: Article[] = [
     tag: 'ai, tools',
     date: '2023.02.23',
     mins: 3,
-    title: "ChatGPT Can Be Good for Academic Research — If You Use It Right",
+    title: 'ChatGPT Can Be Good for Academic Research — If You Use It Right',
     dek: "Using AI to blindly write your papers is lazy and self-defeating. Using it as a thinking partner isn't.",
     toc: ['The Problem', "What It's Actually Good For", 'How I Use It'],
     body: [
@@ -734,7 +734,7 @@ export const ARTICLES: Article[] = [
     date: '2023.01.26',
     mins: 3,
     title: "Does the Linux Distro You Use Determine If You're a Noob or an Expert?",
-    dek: "No. And anyone who tells you otherwise is gatekeeping for ego reasons.",
+    dek: 'No. And anyone who tells you otherwise is gatekeeping for ego reasons.',
     toc: ['The Gatekeeping Problem', 'What Actually Matters'],
     body: [
       {
@@ -748,12 +748,12 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: "I ran Arch and Gentoo for a while. I learned a lot. I also spent too much time on breakage and configuration that had nothing to do with the skills I was actually trying to build. Now I keep a user-friendly distro as my daily driver and spin up the complex ones in VMs when I want to dig into something specific.",
+        x: 'I ran Arch and Gentoo for a while. I learned a lot. I also spent too much time on breakage and configuration that had nothing to do with the skills I was actually trying to build. Now I keep a user-friendly distro as my daily driver and spin up the complex ones in VMs when I want to dig into something specific.',
       },
       { t: 'h', x: 'What Actually Matters' },
       {
         t: 'p',
-        x: "The only thing that determines Linux expertise is how much time you spend studying it and how deep you go. Not which distro you picked. Choose what fits your requirements, your available time, and your patience — and then spend your energy actually learning, not justifying your distro choice to strangers on the internet.",
+        x: 'The only thing that determines Linux expertise is how much time you spend studying it and how deep you go. Not which distro you picked. Choose what fits your requirements, your available time, and your patience — and then spend your energy actually learning, not justifying your distro choice to strangers on the internet.',
       },
       {
         t: 'list',
@@ -772,17 +772,17 @@ export const ARTICLES: Article[] = [
     date: '2023.01.24',
     mins: 2,
     title: 'Use Containers to Make Your Life Easier',
-    dek: "Why I stopped spinning up full VMs for every test and started using Docker instead.",
+    dek: 'Why I stopped spinning up full VMs for every test and started using Docker instead.',
     toc: ['VMs vs Containers', 'When to Use Which'],
     body: [
       {
         t: 'p',
-        x: "I used to test applications inside a Virtual Machine. It worked, but it was slow — every new test meant installing a full OS, waiting for it to boot, and dealing with more hardware overhead than the application itself actually needed. Containers solved that for me.",
+        x: 'I used to test applications inside a Virtual Machine. It worked, but it was slow — every new test meant installing a full OS, waiting for it to boot, and dealing with more hardware overhead than the application itself actually needed. Containers solved that for me.',
       },
       { t: 'h', x: 'VMs vs Containers' },
       {
         t: 'p',
-        x: "A Virtual Machine runs a complete guest OS managed by a Hypervisor (like Linux KVM or Microsoft Hyper-V). The hypervisor handles resource sharing across VMs on the same physical machine — this is how cloud providers like AWS run thousands of EC2 instances on shared hardware. VMs give you full isolation but come with the cost of running an entire operating system.",
+        x: 'A Virtual Machine runs a complete guest OS managed by a Hypervisor (like Linux KVM or Microsoft Hyper-V). The hypervisor handles resource sharing across VMs on the same physical machine — this is how cloud providers like AWS run thousands of EC2 instances on shared hardware. VMs give you full isolation but come with the cost of running an entire operating system.',
       },
       {
         t: 'p',
@@ -791,7 +791,7 @@ export const ARTICLES: Article[] = [
       { t: 'h', x: 'When to Use Which' },
       {
         t: 'p',
-        x: "Containers are the right call for temporary applications, testing, or production environments where the setup should be simple and repeatable. VMs are still the right call when you need full OS isolation, a different kernel, or platform-specific behavior. Know the tradeoff and pick what your problem actually requires.",
+        x: 'Containers are the right call for temporary applications, testing, or production environments where the setup should be simple and repeatable. VMs are still the right call when you need full OS isolation, a different kernel, or platform-specific behavior. Know the tradeoff and pick what your problem actually requires.',
       },
     ],
   },
@@ -807,7 +807,7 @@ export const ARTICLES: Article[] = [
     body: [
       {
         t: 'p',
-        x: "The Commodore 64 is an 8-bit computer introduced in 1982 by Commodore International. It uses a variant of the MOS 6502 microprocessor, the MOS 6510, has 64KB of RAM, and was the top-selling personal computer of its time at around $595. Originals show up on eBay around $200 today — not cheap, and importing one is worse. So: emulation.",
+        x: 'The Commodore 64 is an 8-bit computer introduced in 1982 by Commodore International. It uses a variant of the MOS 6502 microprocessor, the MOS 6510, has 64KB of RAM, and was the top-selling personal computer of its time at around $595. Originals show up on eBay around $200 today — not cheap, and importing one is worse. So: emulation.',
       },
       {
         t: 'p',
@@ -820,7 +820,16 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'list',
-        x: ['GTK3 or SDL2 (GTK3 recommended)', 'flex', 'bison', 'dos2unix', 'xa65', 'texinfo', 'texlive', 'glew'],
+        x: [
+          'GTK3 or SDL2 (GTK3 recommended)',
+          'flex',
+          'bison',
+          'dos2unix',
+          'xa65',
+          'texinfo',
+          'texlive',
+          'glew',
+        ],
       },
       { t: 'h', x: 'Downloading & Compiling' },
       {
@@ -841,7 +850,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: "The -j$(nproc) flag tells make to use all available CPU cores. If ./configure errors out, a missing package is almost always the cause — read the error, find the package name for your distro, and install it.",
+        x: 'The -j$(nproc) flag tells make to use all available CPU cores. If ./configure errors out, a missing package is almost always the cause — read the error, find the package name for your distro, and install it.',
       },
       { t: 'h', x: 'Installing' },
       {
@@ -854,7 +863,7 @@ export const ARTICLES: Article[] = [
       },
       {
         t: 'p',
-        x: "You can also skip the install and run binaries directly from the src/ folder — useful if you just want to try it without touching your system paths. For C64 software and ROM images, the Zimmers archive is the go-to resource: http://www.zimmers.net/anonftp/pub/cbm/",
+        x: 'You can also skip the install and run binaries directly from the src/ folder — useful if you just want to try it without touching your system paths. For C64 software and ROM images, the Zimmers archive is the go-to resource: http://www.zimmers.net/anonftp/pub/cbm/',
       },
     ],
   },
@@ -870,7 +879,7 @@ export const ARTICLES: Article[] = [
     body: [
       {
         t: 'p',
-        x: "A lot of people I know at university — and outside it — ask whether they should start with Python or JavaScript. My answer is always the same: start with C.",
+        x: 'A lot of people I know at university — and outside it — ask whether they should start with Python or JavaScript. My answer is always the same: start with C.',
       },
       { t: 'h', x: 'Know Thy Enemy' },
       {
@@ -959,7 +968,10 @@ export const ARTICLES: Article[] = [
           { t: 'out', x: 'hello' },
           { t: 'out', x: 'You entered a wrong password!' },
           { t: 'cmd', x: 'file rauth' },
-          { t: 'out', x: 'rauth: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, ...' },
+          {
+            t: 'out',
+            x: 'rauth: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, ...',
+          },
         ],
       },
       {
@@ -1022,7 +1034,10 @@ export const ARTICLES: Article[] = [
           { t: 'out', x: '001065ca:  MOVAPS xmmword ptr [RSP + 0x90], XMM0    ; key bytes 0..16' },
           { t: 'out', x: '001065d2:  MOVDQA XMM0, xmmword ptr [0x00139cb0]' },
           { t: 'out', x: '001065da:  MOVDQA xmmword ptr [RSP + 0xa0], XMM0    ; key bytes 16..32' },
-          { t: 'out', x: '001065e3:  MOV RAX, 0x3361303732633464             ; nonce → LE bytes: d4c270a3' },
+          {
+            t: 'out',
+            x: '001065e3:  MOV RAX, 0x3361303732633464             ; nonce → LE bytes: d4c270a3',
+          },
           { t: 'out', x: '001065ed:  MOV qword ptr [RSP + 0xc0], RAX' },
         ],
       },
@@ -1154,14 +1169,38 @@ export const ARTICLES: Article[] = [
           { t: 'out', x: 'def salsa20_block(state):' },
           { t: 'out', x: '    x = list(state)' },
           { t: 'out', x: '    for _ in range(10):' },
-          { t: 'out', x: '        x[0],  x[4],  x[8],  x[12] = quarter_round(x[0],  x[4],  x[8],  x[12])' },
-          { t: 'out', x: '        x[5],  x[9],  x[13], x[1]  = quarter_round(x[5],  x[9],  x[13], x[1])' },
-          { t: 'out', x: '        x[10], x[14], x[2],  x[6]  = quarter_round(x[10], x[14], x[2],  x[6])' },
-          { t: 'out', x: '        x[15], x[3],  x[7],  x[11] = quarter_round(x[15], x[3],  x[7],  x[11])' },
-          { t: 'out', x: '        x[0],  x[1],  x[2],  x[3]  = quarter_round(x[0],  x[1],  x[2],  x[3])' },
-          { t: 'out', x: '        x[5],  x[6],  x[7],  x[4]  = quarter_round(x[5],  x[6],  x[7],  x[4])' },
-          { t: 'out', x: '        x[10], x[11], x[8],  x[9]  = quarter_round(x[10], x[11], x[8],  x[9])' },
-          { t: 'out', x: '        x[15], x[12], x[13], x[14] = quarter_round(x[15], x[12], x[13], x[14])' },
+          {
+            t: 'out',
+            x: '        x[0],  x[4],  x[8],  x[12] = quarter_round(x[0],  x[4],  x[8],  x[12])',
+          },
+          {
+            t: 'out',
+            x: '        x[5],  x[9],  x[13], x[1]  = quarter_round(x[5],  x[9],  x[13], x[1])',
+          },
+          {
+            t: 'out',
+            x: '        x[10], x[14], x[2],  x[6]  = quarter_round(x[10], x[14], x[2],  x[6])',
+          },
+          {
+            t: 'out',
+            x: '        x[15], x[3],  x[7],  x[11] = quarter_round(x[15], x[3],  x[7],  x[11])',
+          },
+          {
+            t: 'out',
+            x: '        x[0],  x[1],  x[2],  x[3]  = quarter_round(x[0],  x[1],  x[2],  x[3])',
+          },
+          {
+            t: 'out',
+            x: '        x[5],  x[6],  x[7],  x[4]  = quarter_round(x[5],  x[6],  x[7],  x[4])',
+          },
+          {
+            t: 'out',
+            x: '        x[10], x[11], x[8],  x[9]  = quarter_round(x[10], x[11], x[8],  x[9])',
+          },
+          {
+            t: 'out',
+            x: '        x[15], x[12], x[13], x[14] = quarter_round(x[15], x[12], x[13], x[14])',
+          },
           {
             t: 'out',
             x: '    return b"".join(struct.pack("<I", (x[i] + state[i]) & 0xFFFFFFFF) for i in range(16))',
@@ -1253,6 +1292,150 @@ export const ARTICLES: Article[] = [
           'Ghidra image base. This binary loads with Ghidra base 0x100000. File offset = Ghidra address − 0x100000.',
           'Local flag ≠ server flag. The binary you analyse locally has a placeholder flag. The real flag comes from the challenge server.',
           'Raw TCP vs HTTP. The challenge server speaks the protocol directly over TCP. curl will not work — use nc.',
+        ],
+      },
+    ],
+  },
+  {
+    id: '0x0D',
+    slug: 'fortinet-sase-sdwan',
+    tag: 'sase, sd-wan, fortinet, networking',
+    date: '2026.06.10',
+    mins: 8,
+    title: 'Fortinet SASE + SD-WAN',
+    dek: 'Fortinet SASE and SD-WAN architecture — PoP communication patterns, SPA policies, ZTNA modes, and sovereign deployment options.',
+    toc: [
+      'Arquitetura',
+      'Intra-PoP',
+      'Inter-PoP',
+      'Políticas SPA',
+      'Conector para aplicações SPAC',
+      'Licenciamento',
+      'ZTNA',
+      'Modos de direcionamento de tráfego',
+      'Diferenças entre os tipos de SPA',
+      'SASE soberana',
+    ],
+    body: [
+      {
+        t: 'ascii',
+        x: 'Data: 10/06/2026\nTopic: Fortinet SASE + SD-WAN Architecture & Deployment',
+      },
+      {
+        t: 'h',
+        x: 'Arquitetura',
+      },
+      {
+        t: 'p',
+        x: 'Foco da apresentação:',
+      },
+      {
+        t: 'list',
+        x: [
+          'SPA via SD-WAN: conexão através do spoke do FortiSASE para o hub FortiGate',
+          'SPA via ZTNA: conexão direta ao hub FortiGate',
+        ],
+      },
+      {
+        t: 'note',
+        x: 'O SASE protege em ambos os sentidos. Cliente to Server & Server to Client',
+      },
+      {
+        t: 'h',
+        x: 'Intra-PoP',
+      },
+      {
+        t: 'p',
+        x: 'O Intra-PoP baseia-se na comunicação entre dois usuários remotos ou localidades thin-edge conectados ao mesmo PoP',
+      },
+      {
+        t: 'note',
+        x: 'O modelo Intra-PoP requer a ativação da opção "Permitir tráfego client-to-client de ponta a ponta entre PoPs" nas configurações de BGP',
+      },
+      {
+        t: 'h',
+        x: 'Inter-PoP',
+      },
+      {
+        t: 'p',
+        x: 'No modelo Inter-PoP, os fluxos de comunicação utilizam diferentes PoPs.',
+      },
+      {
+        t: 'note',
+        x: 'São necessários conectores SD-WAN para habilitar a licença SPA no FortiSASE. Apenas os FortiGate Hub(s) precisam de licença.',
+      },
+      {
+        t: 'list',
+        x: [
+          'Os PoPs do FortiSASE atuam como encaminhadores de DNS (DNS forwarders) para domínios internos',
+        ],
+      },
+      {
+        t: 'h',
+        x: 'Políticas SPA',
+      },
+      {
+        t: 'p',
+        x: 'Existem no total 3 tipos de políticas para SPA:',
+      },
+      {
+        t: 'list',
+        x: ['To Hubs', 'From Hubs', 'Intra-PoP'],
+      },
+      {
+        t: 'h',
+        x: 'Conector para aplicações SPAC',
+      },
+      {
+        t: 'note',
+        x: 'Está em desenvolvimento. Conector privado utilizando VM.',
+      },
+      {
+        t: 'h',
+        x: 'Licenciamento',
+      },
+      {
+        t: 'p',
+        x: 'As licenças do SASE terão apenas 2 bundles (Below 120G e 120G+) para facilitar o dimensionamento.',
+      },
+      {
+        t: 'h',
+        x: 'ZTNA',
+      },
+      {
+        t: 'h',
+        x: 'Modos de direcionamento de tráfego',
+      },
+      {
+        t: 'list',
+        x: ['ZTNA Steering', 'Bypass Destinations', 'Application Bypass'],
+      },
+      {
+        t: 'note',
+        x: 'As regras do FortiGate e do SASE são sincronizadas.',
+      },
+      {
+        t: 'p',
+        x: 'ZTNA agentless requer licenciamento Advanced ou Comprehensive.',
+      },
+      {
+        t: 'h',
+        x: 'Diferenças entre os tipos de SPA',
+      },
+      {
+        t: 'p',
+        x: 'FortiCloud Organizations – gratuito para até 10 usuários internos.',
+      },
+      {
+        t: 'h',
+        x: 'SASE soberana',
+      },
+      {
+        t: 'list',
+        x: [
+          'Possibilidade de criar um PoP dentro da infraestrutura do cliente',
+          'Customizável para o cliente',
+          'Escalável',
         ],
       },
     ],
