@@ -21,19 +21,16 @@ const minis = ARTICLES.filter((a) => a !== pinned)
 const pgpBlock = ref<InstanceType<typeof CodeBlock>>()
 const pgpLines = [
   { t: 'prompt' as const, x: '-----BEGIN PGP PUBLIC KEY BLOCK-----' },
-  { t: 'prompt' as const, x: '' },
-  { t: 'prompt' as const, x: 'xjMEZmyHexYJKwYBBAHaRw8BAQdA5P6AZw7SiBH9qWxUbQc0m96hfrG+qgD/' },
-  { t: 'prompt' as const, x: 'op4t3EqbyV3NL200c2gxbG9AcHJvdG9ubWFpbC5jb20gPG00c2gxbG9AcHJv' },
-  { t: 'prompt' as const, x: 'dG9ubWFpbC5jb20+wowEEBYKAD4FgmZsh3sECwkHCAmQCPSjD43h3wIDFQgK' },
-  { t: 'prompt' as const, x: 'BBYAAgECGQECmwMCHgEWIQT7MKz5MRKFxfDW4XAI9KMPjeHfAgAAetkA/3si' },
-  { t: 'prompt' as const, x: '2bXsXEXtykWlmCrp8LkiymqGu49GO5OkVE92d920AP0SP1yQwDKGadIsviw6' },
-  { t: 'prompt' as const, x: '2S11fwaIdb+bkKYB8AZ1MbhaD844BGZsh3sSCisGAQQBl1UBBQEBB0Dh97my' },
-  { t: 'prompt' as const, x: 'RsLcM+yzX87QvmhtFeXC0kOkUdyUayKUwGT0MQMBCAfCeAQYFgoAKgWCZmyH' },
-  { t: 'prompt' as const, x: 'ewmQCPSjD43h3wICmwwWIQT7MKz5MRKFxfDW4XAI9KMPjeHfAgAAdKEBANIM' },
-  { t: 'prompt' as const, x: 'TncN8yGLoRnqz7Xo/9Mzl5a/j/g1aSFVq1bLEmlzAP4k+nHtE9/YzwrO9CJN' },
-  { t: 'prompt' as const, x: 'esolfGSSqWXm3aAa22xK8W/aBg==' },
-  { t: 'prompt' as const, x: '=2s0n' },
-  { t: 'prompt' as const, x: '' },
+  { t: 'prompt' as const, x: 'mDMEajss/RYJKwYBBAHaRw8BAQdASMiqtQFJHFfSXfXCh5xYrBGgHpRjLzxWkj8b' },
+  { t: 'prompt' as const, x: 'jUe19Ua0IWt1cjBuM2swIDxtNHNoMWxvQHByb3Rvbm1haWwuY29tPoiWBBMWCgA+' },
+  { t: 'prompt' as const, x: 'FiEENih+laM/HZaphdYYrShd5YelweIFAmo7LP0CGwMFCQWjmoAFCwkIBwIGFQoJ' },
+  { t: 'prompt' as const, x: 'CAsCBBYCAwECHgECF4AACgkQrShd5YelweIi0gEAtDbSwt+R6QA540gAsGhlYYmA' },
+  { t: 'prompt' as const, x: 'AWLye4IwmQNDRn+AXRkA/0i4EEhomqdMBdNbovBy+Xz7q3z5PfMuXTqIAF/PWCEM' },
+  { t: 'prompt' as const, x: 'uDgEajss/RIKKwYBBAGXVQEFAQEHQCaE4b8serfo+8xhiMtk5WlZ0ZthVcUVQodr' },
+  { t: 'prompt' as const, x: 'lWXZK9w3AwEIB4h+BBgWCgAmFiEENih+laM/HZaphdYYrShd5YelweIFAmo7LP0C' },
+  { t: 'prompt' as const, x: 'GwwFCQWjmoAACgkQrShd5YelweIauQD/dnm6QEtMtLrAaggaO/0hOXeQJT/2+yRd' },
+  { t: 'prompt' as const, x: '2lyD6TTtoT0A/iJd4VxtF69LRH53NAgMfOhNRAIakaG/GwTDp3eSQ28F' },
+  { t: 'prompt' as const, x: '=ihWi' },
   { t: 'prompt' as const, x: '-----END PGP PUBLIC KEY BLOCK-----' },
 ]
 </script>
@@ -222,7 +219,8 @@ const pgpLines = [
             <pre class="code dim" style="font-size: 11.5px; line-height: 1.85">
 uptime ..... 412d
 posts ...... {{ ARTICLES.length }}
-tor relay .. UP
+tor relay .. DOWN
+i2p ........ DOWN
 last sync .. 2026.06.01</pre
             >
           </div>
