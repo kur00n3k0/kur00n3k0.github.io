@@ -699,7 +699,7 @@ export const ARTICLES: Article[] = [
     mins: 0,
     title: 'How to setup and use the Reticulum network using a Rasberry Pi and Heltec V3',
     dek: 'Reticulum network for privacy and censorship circumvention',
-    toc: ['Header 0x01', 'Header 0x02'],
+    toc: ['Header 0x01'],
     body: [
       {
         t: 'h',
