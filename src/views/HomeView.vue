@@ -228,7 +228,7 @@ last sync .. 2026.06.01</pre
         <SitePanel label="// channels">
           <div style="padding: 15px">
             <div class="dim mono-xs" style="line-height: 2.1">
-              ▸ /rss.xml<br />▸ matrix : @kur0n3k0<br />▸ mirror : .onion<br />▸ monero: 0xffffffff
+              ▸ /rss.xml<br />▸ matrix : @kur0n3k0<br />▸ mirror : .onion<br />▸ monero: 4ASANdSLMzHMPM9QWKXs7jbhhEFbdSrAaW4g8HLuDJnVSanhnQhMFM2EfuhKQ2jpG9YVBAmW4CYyVNXNNXHGzewtTXeKdRY
             </div>
           </div>
         </SitePanel>

@@ -3,7 +3,7 @@ withDefaults(defineProps<{ items?: string[] }>(), {
   items: () => [
     'MASK ON',
     'SAFETY IS AN ILUSION',
-    'DONATE TO US (MONERO) @ 0xffffffff',
+    'DONATE TO US (MONERO) @ 4ASANdSLMzHMPM9QWKXs7jbhhEFbdSrAaW4g8HLuDJnVSanhnQhMFM2EfuhKQ2jpG9YVBAmW4CYyVNXNNXHGzewtTXeKdRY',
     'TRUST NO ONE',
     'STAY ANON',
     'STAY SAFE',
