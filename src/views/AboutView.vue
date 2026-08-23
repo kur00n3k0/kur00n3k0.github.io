@@ -26,6 +26,15 @@ const pgpLines = [
   { t: 'prompt' as const, x: '=ihWi' },
   { t: 'prompt' as const, x: '-----END PGP PUBLIC KEY BLOCK-----' },
 ]
+
+const moneroBlock  = ref<InstanceType<typeof CodeBlock>>()
+const moneroWallet = [
+  { t: 'prompt' as const, x: 'Please donate to us so we can keep working'},
+  { t: 'prompt' as const, x: 'For now we only accept donations in Monero and not planning on taking other crypto'},
+  { t: 'prompt' as const, x: ''},
+  { t: 'prompt' as const, x: 'Monero wallet address:'},
+  { t: 'prompt' as const, x: '4ASANdSLMzHMPM9QWKXs7jbhhEFbdSrAaW4g8HLuDJnVSanhnQhMFM2EfuhKQ2jpG9YVBAmW4CYyVNXNNXHGzewtTXeKdRY'},
+]
 </script>
 
 <template>
@@ -65,16 +74,16 @@ const pgpLines = [
             leave it more secure
           </div>
         </SitePanel>
-        <SitePanel label="// keys">
-          <div style="padding: 14px">
-            <pre class="code dim" style="font-size: 11px; line-height: 1.9"><span
+        <SitePanel label="// channels">
+          <div style="padding: 15px">
+            <div class="dim mono-xs" style="line-height: 2.1">
+              ▸ nostr: npub1u2r6uk4jqfgr9t4myn2rspvrs9kafyfe7zjjjajrg6ua6phdxqyqnj83q2<br />▸ github : https://github.com/kur00n3k0<br />▸ mirror : .onion<br />▸ <span
                 class="acc"
                 style="cursor: pointer; text-decoration: underline; text-underline-offset: 3px"
-                @click="pgpBlock?.open()"
-                >[ PGP ]</span>
-matrix . @kur0n3k0
-rss .... /rss.xml
-mirror . .onion</pre>
+                @click="moneroBlock?.open()"
+                >[ Monero ]
+            </span>
+            </div>
           </div>
         </SitePanel>
         <div style="display: flex; justify-content: center">
@@ -86,4 +95,5 @@ mirror . .onion</pre>
 
   <!-- PGP key modal (no visible panel, modal only) -->
   <CodeBlock ref="pgpBlock" :no-panel="true" :lines="pgpLines" label="PGP PUBLIC KEY" />
+  <CodeBlock ref="moneroBlock" :no-panel="true" :lines="moneroWallet" label="MONERO WALLET" />
 </template>

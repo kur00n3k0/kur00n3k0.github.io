@@ -42,7 +42,6 @@ const moneroWallet = [
   { t: 'prompt' as const, x: 'Monero wallet address:'},
   { t: 'prompt' as const, x: '4ASANdSLMzHMPM9QWKXs7jbhhEFbdSrAaW4g8HLuDJnVSanhnQhMFM2EfuhKQ2jpG9YVBAmW4CYyVNXNNXHGzewtTXeKdRY'},
 ]
-
 </script>
 
 <template>
