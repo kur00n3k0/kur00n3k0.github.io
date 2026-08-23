@@ -589,8 +589,8 @@ export const ARTICLES: Article[] = [
         label: 'Run solve.py',
         lines: [
           { t: 'cmd', x: 'python3 solve.py' },
-          { t: 'out', x: 'Password: TheCrucialRustEngineering@2021;)' },
-          { t: 'out', x: 'Flag:     HTB{F4k3_f74g_4_t3s7ing}' },
+          { t: 'out', x: 'Password: ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒' },
+          { t: 'out', x: 'Flag:     ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒' },
         ],
       },
       {
@@ -602,11 +602,11 @@ export const ARTICLES: Article[] = [
         t: 'code',
         label: 'Verify locally',
         lines: [
-          { t: 'cmd', x: "echo 'TheCrucialRustEngineering@2021;)' | ./rauth" },
+          { t: 'cmd', x: "echo '▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒' | ./rauth" },
           { t: 'out', x: 'Welcome to secure login portal!' },
           { t: 'out', x: 'Enter the password to access the system:' },
           { t: 'ok', x: 'Successfully Authenticated' },
-          { t: 'out', x: 'Flag: "HTB{F4k3_f74g_4_t3s7ing}"' },
+          { t: 'out', x: 'Flag: "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"' },
         ],
       },
       {
@@ -617,11 +617,11 @@ export const ARTICLES: Article[] = [
         t: 'code',
         label: 'Connect to the server',
         lines: [
-          { t: 'cmd', x: "echo 'TheCrucialRustEngineering@2021;)' | nc -q2 154.57.164.70 30193" },
+          { t: 'cmd', x: "echo '▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒' | nc -q2 154.57.164.70 30193" },
           { t: 'out', x: 'Welcome to secure login portal!' },
           { t: 'out', x: 'Enter the password to access the system:' },
           { t: 'ok', x: 'Successfully Authenticated' },
-          { t: 'ok', x: 'Flag: "HTB{I_Kn0w_h0w_t0_5al54}"' },
+          { t: 'ok', x: 'Flag: "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"' },
         ],
       },
       { t: 'h', x: 'Key Takeaways' },
@@ -636,26 +636,6 @@ export const ARTICLES: Article[] = [
           'Local flag ≠ server flag. The binary you analyse locally has a placeholder flag. The real flag comes from the challenge server.',
           'Raw TCP vs HTTP. The challenge server speaks the protocol directly over TCP. curl will not work — use nc.',
         ],
-      },
-    ],
-  },
-  {
-    id: '0x07',
-    slug: 'reticulum-network',
-    tag: 'private, network, lora, reticulum',
-    date: '2026.06.19',
-    mins: 0,
-    title: 'How to setup and use the Reticulum network using a Rasberry Pi and Heltec V3',
-    dek: 'Reticulum network for privacy and censorship circumvention',
-    toc: ['Header 0x01'],
-    body: [
-      {
-        t: 'h',
-        x: 'Header 0x01',
-      },
-      {
-        t: 'p',
-        x: 'Working on it...',
       },
     ],
   },
