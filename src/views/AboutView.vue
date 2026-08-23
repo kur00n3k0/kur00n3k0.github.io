@@ -35,6 +35,8 @@ const moneroWallet = [
   { t: 'prompt' as const, x: 'Monero wallet address:'},
   { t: 'prompt' as const, x: '4ASANdSLMzHMPM9QWKXs7jbhhEFbdSrAaW4g8HLuDJnVSanhnQhMFM2EfuhKQ2jpG9YVBAmW4CYyVNXNNXHGzewtTXeKdRY'},
 ]
+
+const logo = new URL('@/assets/pics/logo_new.jpg', import.meta.url).href
 </script>
 
 <template>
@@ -44,6 +46,9 @@ const moneroWallet = [
 
     <div style="display: grid; grid-template-columns: 1fr 280px; gap: 26px; align-items: start">
       <div>
+        <div :style="{'--img-src': `url('${logo}')` }">
+          <img :src="logo" alt="" style="max-width: 512px;" />
+        </div>
         <p class="fg2" style="max-width: 62ch; font-size: 15px; line-height: 1.8">
           kur0n3k0 — security researcher, hardware tinkerer, and reluctant blogger. This is a field
           journal of things pulled apart: firmware, radios, protocols, and the occasional
