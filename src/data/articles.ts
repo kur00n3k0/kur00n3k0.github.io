@@ -639,6 +639,76 @@ export const ARTICLES: Article[] = [
       },
     ],
   },
+  {
+    id: "0x07",
+    slug: "linux-larpers",
+    tag: "linux, future, open-source, criticism",
+    date: "2026.08.26",
+    mins: 5,
+    pinned: false,
+    title: "The Linux \"larper\" situation",
+    dek: "My opnion on Linux larpers and the bipolarization of the open-source community.",
+    toc: [
+      "What is Larping?",
+      "But, what\\'s wrong with that?",
+      "That was expected",
+      "What we should expect for the future of Linux?"
+    ],
+    body: [
+    {
+      t: "p",
+      x: "Hey, how you going? I'm here, at midnight, 01:36 AM writting this because I want to expose a situation that is making me confused among the Linux community: **LARPING**.",
+    },
+    {
+      t: "h",
+      x: "What is Larping?",
+    },
+    {
+      t: "p",
+      x: "Acording to Know-your-meme:",
+    },
+    {
+      t: "note",
+      x: "While the term dates back to at least the 1970s, its meaning has shifted significantly in the internet age. Today, it’s often used online to accuse someone of pretending to be something they’re not.",
+    },
+    {
+      t: "p",
+      x: "So basically a larper is someone who never touched, in our case, any OS based on the Linux kernel, and pretends to be a Linux advanced user or experienced by often showing exagerated graphical interfaces with lots of animations, transparency, the terminal showing the output of fastfetch, btop, cava etc, while their hardware are screaming for help and there's not enough RAM for opening a simple HTML page on Chrome. That's what we call Linux larpers.",
+    },
+    {
+      t: "p",
+      x: "There's already some distros made specially for larpers... not gonna say the names of them directly but... oh march!",
+    },
+    {
+      t: "h",
+      x: "But, what's wrong with that?",
+    },
+    {
+      t: "p",
+      x: "Ok, people like that are annoying and they don't even know how to compile a custom kernel, they use Wayland and sure enough... systemd... but that's expected right? Average end-users just want it to work. Remember when I said \"I want to expose a situation that is making me confused\"? So, what exactly is making me confused? The answer is simple: back in 2010 when I start using Linux and becoming a active member on the open-source community, I remember people screaming \"STOP USING WINDOWS, USE LINUX INSTEAD\", even me was someone who told that to a lot of people, so why are we complaining about people migrating from Windows to Linux now? I can't understand.",
+    },
+    {
+      t: "h",
+      x: "That was expected",
+    },
+    {
+      t: "p",
+      x: "When we shouted \"COME TO LINUX\" we should've expected that results... right? Well, no. Actually the days before the pandemic were very different. Some people might not remember that now but before the pandemic the Internet was completely different from what we have today. People who used the Internet back then were mostly nerds and weird people who knew at least a bit about computers, not like today... today any idiot uses the Internet to post their burguer photo, or photos of their assess on Instagram, gym videos and all that normie stuff we see today.",
+    },
+    {
+      t: "h",
+      x: "What we should expect for the future of Linux?",
+    },
+    {
+      t: "p",
+      x: "To be honest, I have no idea. Anything can happen, and things are happening fast paced! The open-source community is very political driven. They care more about esthetics then functionality and performance. They care more about \"how many LGTB people we have on our team?\" instead of \"how reliable and well made are our code?\". So the future of Linux and the open-source community is really unknown, but I'm sure we sure expect for the worse.",
+    },
+    {
+      t: "p",
+      x: "That's all! This post was more my opnion than anything else. Thank you for reading and have a nice day.",
+    }
+    ],
+  },
 ]
 
 export function byId(id: string): Article {
