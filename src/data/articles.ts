@@ -709,6 +709,291 @@ export const ARTICLES: Article[] = [
     }
     ],
   },
+  {
+    id: "0x08",
+    slug: "php2shell",
+    tag: "php, rce, vulnerability, news",
+    date: "2026.10.26",
+    mins: 10,
+    pinned: false,
+    title: "PHP2Shell: two critical bugs in PHP's core",
+    dek: "CVE-2026-109618 and CVE-2026-109619: a leaked embargo, a decade of affected versions, and unauthenticated RCE against WordPress, Drupal and Joomla.",
+    toc: [
+      "TL;DR",
+      "What is PHP2Shell?",
+      "The root cause: dying halfway through a job",
+      "The bugs",
+      "A 22-year-old idea",
+      "From bug to shell",
+      "The leak and the timeline",
+      "Who is affected?",
+      "Detection",
+      "What to do right now",
+      "The AI angle",
+      "Final thoughts",
+    ],
+    body: [
+      {
+        t: "note",
+        x: "Defensive write-up. This article is a summary of three public analyses (Huntress, Calif and Wiz) and contains no exploit code. Patch your systems, and only test what you own or have written permission to test.",
+      },
+      { t: "h", x: "TL;DR" },
+      {
+        t: "list",
+        x: [
+          "Two critical flaws in the PHP engine itself: CVE-2026-109618 and CVE-2026-109619, CVSS v4.0 9.2.",
+          "Unauthenticated remote code execution as the web worker user, plus a separate remote memory disclosure.",
+          "Not a CMS bug. WordPress, Drupal, Joomla, MediaWiki, Roundcube, Magento, phpMyAdmin, Nextcloud, Laravel and Symfony all sit on top of the same engine.",
+          "Paths reach back to PHP 5.4. Wiz says every PHP version released in the last decade has at least one of these bugs.",
+          "Fixed in PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35, released October 21, 2026. Minimal source backports exist for 7.4, 8.0 and 8.1.",
+          "The embargo leaked a day early. Patch first, read the write-ups second.",
+        ],
+      },
+      { t: "h", x: "What is PHP2Shell?" },
+      {
+        t: "p",
+        x: "PHP2Shell is the name researchers gave to a pair of critical vulnerabilities in the core of PHP, the language behind roughly 70% of websites according to Wiz. As Huntress put it, a name like that “usually means one thing”: send a request to a website, get a shell on the server behind it.",
+      },
+      {
+        t: "p",
+        x: "The bugs were found by Calif together with OpenAI, and independently by Wiz Research. Both were handled through the PHP security team and shipped in the PHP October 2026 Security Release. What makes this different from the usual “WordPress plugin has SQLi” news is the layer. These flaws live below the application, so hardening your app, auditing your plugins or putting a login in front of it does not help. The vulnerable code runs before your code does.",
+      },
+      {
+        t: "p",
+        x: "According to the PHP advisory, the mod_php exploit lets an unauthenticated request trigger the attack before any application code runs, and complete RCE was validated over HTTP with default input and memory limits and with normal multi-worker prefork configurations.",
+      },
+      { t: "h", x: "The root cause: dying halfway through a job" },
+      {
+        t: "p",
+        x: "Every bug in this family shares one idea, and it is a good one to remember because it shows up everywhere. PHP enforces memory_limit. When an allocation would cross it, PHP raises a fatal error and bails out. The problem is what the engine was in the middle of doing at that exact moment.",
+      },
+      {
+        t: "p",
+        x: "Calif describes the pattern in general terms: when code publishes or destroys some state and then does fallible work, a fatal error in the middle can skip the commit or the rollback step. The request heap gets thrown away, but a global pointer still points into it. A half-built object is treated as a finished one during cleanup. Then the next request on the same worker walks into the leftovers.",
+      },
+      {
+        t: "code",
+        label: "The shape of the bug (pseudocode, not PHP source)",
+        lines: [
+          { t: "out", x: "publish(state)          // global now points at request memory" },
+          { t: "out", x: "allocate(...)           // <-- exceeds memory_limit, fatal error" },
+          { t: "out", x: "// commit/rollback never runs" },
+          { t: "out", x: "// request heap freed, global still points into it" },
+          { t: "out", x: "// next request on this worker trusts the stale pointer" },
+        ],
+      },
+      {
+        t: "p",
+        x: "That is a use-after-free that survives across requests. Make the attacker choose what lands in the freed memory and you have a classic heap-corruption primitive, now reachable over plain HTTP.",
+      },
+      { t: "h", x: "The bugs" },
+      {
+        t: "p",
+        x: "The three write-ups describe the issues from different angles and do not map them one-to-one onto the two CVE IDs, so treat the grouping below as a description of the bug classes rather than an official CVE table. Wiz documents four bugs, and Calif describes the same family of problems from the research side. Wiz also says other variants likely exist and that the patch addresses the underlying issue.",
+      },
+      {
+        t: "list",
+        x: [
+          "Upload-progress unserializer use-after-free. A fatal allocation failure during session decoding on the upload-progress path destroys the request heap but leaves the unserializer's global bookkeeping published. A later request on the same worker treats attacker-reclaimed memory as live state. That is the memory-corruption primitive.",
+          "Remote process-memory disclosure. During early multipart parsing, session state can publish a session ID (PS(id)). If an out-of-memory error frees the heap while that pointer survives, a later multipart request trusts the stale pointer and length, and the reclaimed heap bytes are URL-encoded into a PHPSESSID response cookie. It works even if the application never calls session_start().",
+          "Fatal-error backtrace use-after-free. PHP keeps the backtrace of the last fatal error in EG(last_fatal_error_backtrace). After an OOM, that global can still point at freed memory, and an early diagnostic in the next request follows the dangling pointer.",
+          "OPcache type confusion. OPcache stores compiled structures in shared memory and hands out indices into per-worker runtime-pointer maps. An allocation failure inside zend_accel_script_persist() advances the process-local frontier but not the shared one, so another worker can reuse a slot and get a cross-worker type confusion.",
+        ],
+      },
+      {
+        t: "p",
+        x: "Calif adds some of the plumbing that makes the bugs reachable in the first place:",
+      },
+      {
+        t: "list",
+        x: [
+          "post_max_size is checked against the declared Content-Length, not the bytes actually consumed. Chunked HTTP/1.1, lengthless HTTP/2 requests and some input-decompression setups can slip past it.",
+          "Many empty-filename upload parts with deeply nested field names can eat the heap while staying under post_max_size, which lets an attacker make a chosen later allocation hit memory_limit.",
+          "In the hash table insertion routine, the element count is incremented before the key is allocated. If that allocation dies, teardown treats a half-built bucket as live.",
+          "Session upload-progress can initialize session state during multipart parsing, before modules are activated. If parsing dies, the cleanup callback is skipped and the session globals keep pointers into freed memory.",
+          "The generic unserializer's shared bookkeeping can survive a fatal error, and a signed counter in the destructor-list helper can be pushed out of range by a later request.",
+        ],
+      },
+      { t: "h", x: "A 22-year-old idea" },
+      {
+        t: "p",
+        x: "The most interesting part of the Calif write-up is the history, because it shows this was never unknown territory.",
+      },
+      {
+        t: "list",
+        x: [
+          "2004: Stefan Esser finds the first PHP memory-limit remote vulnerability. Calif says he withheld his exploit and that two commercial exploit vendors later built private ones.",
+          "2020: Bug #78876 reports that long variables in multipart/form-data can cause out-of-memory conditions and leave temporary files uncleaned. It is treated as low severity and patched upstream.",
+          "2024: An OSTIF/Quarkslab audit rediscovers a related OOM issue. Exploitation is not proven, so it is not fixed.",
+          "2026: Calif builds on those leads and finds exploitable paths.",
+        ],
+      },
+      {
+        t: "p",
+        x: "Calif also notes that HHVM was checked, and that the 2020 upstream patch had already mitigated the issue there. The lesson I take from this: “not exploitable as far as we can show” is a statement about the researcher's afternoon, not about the bug. A reliable crash in a memory-unsafe runtime is a vulnerability waiting for someone with more patience.",
+      },
+      { t: "h", x: "From bug to shell" },
+      {
+        t: "p",
+        x: "The write-ups deliberately stay conceptual here, and so will I. At a high level the chain looks like this:",
+      },
+      {
+        t: "list",
+        x: [
+          "Trigger memory exhaustion using the request-size bypass and the nested empty-upload records so a chosen allocation hits memory_limit.",
+          "Make the fatal error land at a useful point, one that leaves stale state behind.",
+          "mod_php: the worker survives the failed request and the next request consumes the stale data. Calif describes this as RCE against arbitrary PHP scripts.",
+          "PHP-FPM: a fatal during startup kills the worker, so the route needs a fatal after successful startup, during application decoding (session_start(), session_decode() or unserialize()). A follow-up multipart upload-progress request then reuses the stale decoder state. Calif describes this as application-dependent RCE.",
+          "Reliability: Wiz used the memory-disclosure primitive to remove address uncertainty, which is what turned a memory-corruption bug into a dependable exploit.",
+        ],
+      },
+      {
+        t: "p",
+        x: "Calif reports pre-auth RCE against WordPress 7.1.2, Drupal 11.4.3, Joomla 6.1.4, MediaWiki 1.46.2, Roundcube 1.7.4, Magento 2.4.9, phpMyAdmin 5.2.3, Nextcloud 35.0.1, Laravel 13.11, Symfony 8.1 and WHMCS. Wiz independently demonstrated unauthenticated RCE against the latest container images of WordPress, Drupal and Joomla, combining the bugs into a single script it calls php2shell. Wiz also showed that an attacker can read sensitive process memory (passwords, tokens, API keys, certificates) without achieving code execution at all.",
+      },
+      {
+        t: "note",
+        x: "Both teams say the exploit has to be adapted to each target's memory layout, PHP version and configuration. It is not a one-click button, but it is clearly a solved problem now.",
+      },
+      { t: "h", x: "The leak and the timeline" },
+      {
+        t: "p",
+        x: "The disclosure did not go as planned. On the morning of October 20, a Hacker News post claimed two critical PHP flaws were about to be disclosed. The post was pulled, but screenshots spread. watchTowr confirmed the leak, writing that “we were all supposed to wait until Thursday at 11am ET.” PHP posted an advance notice and moved its release up to Wednesday, October 21.",
+      },
+      {
+        t: "ascii",
+        x: "Calif (found)   2026-08-01  first OOM-fatal + interruption point\nCalif (report)  2026-08-11  first bug reported to PHP\nCalif (PoC)     2026-08-14  RCE PoC shared, confirmed 08-15\nWiz  (found)    2026-08-19  first PHP vulnerability discovered\nWiz  (RCE)      2026-08-20  Drupal pre-auth RCE, WordPress on 08-21\nWiz  (report)   2026-08-24  reported to the PHP security team\nPHP (ack)       2026-09-21  Wiz reports acknowledged, fix in progress\nLEAK            2026-10-20  embargo broken, advance notice posted\nRELEASE         2026-10-21  patched versions and public write-ups",
+      },
+      {
+        t: "p",
+        x: "Two teams finding the same family of bugs within days of each other in August is worth pausing on. If two groups found it, it is reasonable to assume others could have too.",
+      },
+      {
+        t: "p",
+        x: "On the exploitation front, the picture changed quickly. As of 10 AM ET on October 21, Huntress had not seen in-the-wild exploitation across its partner base, while others reported attacks emerging. Calif and Wiz published full technical write-ups later that afternoon. Since the write-ups are public and the exploit chain is described, assume the window is short.",
+      },
+      { t: "h", x: "Who is affected?" },
+      {
+        t: "p",
+        x: "Short answer: anything that serves web requests through PHP. Early reports said PHP 5, 6, 7 and 8. PHP later widened it to all installations serving web requests, including PHP-FPM, Apache with mod_php, php-cgi, FrankenPHP and LiteSpeed. Calif says the earliest affected path dates to PHP 5.4.0, and that under default configurations the bugs are always exploitable, with the exact path depending on the PHP version and SAPI.",
+      },
+      {
+        t: "p",
+        x: "The part people will miss: PHP does not only live in the sites you know about. It is inside shared hosting, control panels, vendor appliances, Windows software and plenty of products that never advertise being written in PHP. Huntress specifically calls out inventorying all of those.",
+      },
+      {
+        t: "p",
+        x: "PHP 8.1 and earlier are no longer supported. Distributions may backport fixes, and PHP released minimal source backports for 7.4, 8.0 and 8.1, but official full releases are only for the supported branches.",
+      },
+      { t: "h", x: "Detection" },
+      {
+        t: "p",
+        x: "Because the exploitation happens below the application, your app logs may show very little. Wiz recommends watching for the side effects:",
+      },
+      {
+        t: "list",
+        x: [
+          "Unusual multipart requests followed by memory-limit errors",
+          "Repeated HTTP 500 responses",
+          "Unusually large or malformed PHPSESSID response cookies",
+          "Unexplained PHP worker churn",
+        ],
+      },
+      {
+        t: "p",
+        x: "For post-exploitation, Huntress (citing Florian Roth) suggests looking for PHP worker processes (php-fpm, php-cgi, php-cgi.exe, httpd, apache2) spawning children they should never spawn:",
+      },
+      {
+        t: "list",
+        x: [
+          "Shells: sh, bash, cmd.exe, powershell.exe",
+          "Interpreters: python, perl",
+          "Download and network tools: curl, wget, nc, certutil.exe",
+          "Reverse shell patterns in command lines: /dev/tcp/, fsockopen, mkfifo",
+          "Recon from the web server: whoami, id, uname -a, ipconfig",
+          "After an intrusion: webshells and new files in the web root, new cron jobs or scheduled tasks, new accounts",
+        ],
+      },
+      {
+        t: "note",
+        x: "At the time of the Huntress post, its IOC table read “TBD”. There are no confirmed, PHP2Shell-specific indicators yet, so behavioral detection of a web worker spawning a shell is your best bet. Huntress also plans to publish Sigma and YARA rules in the huntresslabs/threat-intel repository.",
+      },
+      { t: "h", x: "What to do right now" },
+      {
+        t: "p",
+        x: "Patch. Everyone involved says the same thing, and Calif ends its post with “But seriously: patch.”",
+      },
+      {
+        t: "list",
+        x: [
+          "Update to PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35. Linux distributions and LTS vendors received patches early, so check your vendor packages.",
+          "If you use rpms.remirepo.net, note that updated packages were not available on October 21. Move to distribution packages or build from source.",
+          "Inventory every PHP install, including bundled ones in appliances, control panels and Windows software, then patch internet-facing systems first.",
+          "Take end-of-life PHP offline, or put it behind a VPN or a WAF.",
+          "Alert on PHP workers launching shells, interpreters or download tools.",
+          "If you find compromise: isolate the server and preserve the web server and PHP logs before touching anything.",
+        ],
+      },
+      {
+        t: "p",
+        x: "If you truly cannot patch yet, there are interim, partial measures. Calif lists them for PHP-FPM and mod_php:",
+      },
+      {
+        t: "code",
+        label: "Temporary mitigations (php.ini), not a substitute for patching",
+        lines: [
+          { t: "prompt", x: "; PHP-FPM", p: "php.ini" },
+          { t: "out", x: "session.upload_progress.enabled = 0" },
+          { t: "out", x: "memory_limit = -1" },
+          { t: "prompt", x: "; mod_php", p: "php.ini" },
+          { t: "out", x: "memory_limit = -1" },
+        ],
+      },
+      {
+        t: "note",
+        x: "Calif is explicit that “these changes do not replace a patch”, and setting memory_limit to -1 removes a safety net, which raises the risk of plain memory exhaustion. For end-of-life PHP, PHP's own guidance is to set session.upload_progress.enabled = Off, which may need a service restart. Unofficial community patches exist, but Huntress could not evaluate how effective they are.",
+      },
+      {
+        t: "p",
+        x: "Wiz also notes that vendors including Cloudflare, Fastly, Google, Vercel, Microsoft, Akamai, AWS, Imperva and Automattic published guidance or out-of-the-box mitigations for customers who cannot patch immediately. If you sit behind one of them, check what is already switched on, but treat it as a stopgap.",
+      },
+      { t: "h", x: "The AI angle" },
+      {
+        t: "p",
+        x: "This disclosure is also a data point in the AI-and-vulnerability-research debate, and the two research teams read it differently. Wiz credits Wiz Atlas, Gemini 4 Argon and GPT-5.6 Sol with contributions to discovery, exploit development, attack detection and patch validation. It claims one researcher did in about a week what would previously have taken a team months, and argues that frontier models lower the barrier to adapting complex memory exploits across targets.",
+      },
+      {
+        t: "p",
+        x: "Calif is more measured. Its author writes that “know your target” still applies in the LLM-dominated vulnerability research era, and that “no model is simply capable of unearthing ‘all bugs’ with simple prompts.” In other words, the models helped, but the winning ingredient was someone who understood PHP's memory model and the history of its memory-limit bugs.",
+      },
+      {
+        t: "note",
+        x: "These are the vendors' own accounts of their tooling. I'm relaying them, not verifying them.",
+      },
+      {
+        t: "p",
+        x: "Both takes can be true at once. The part defenders should care about is the practical one: the time between “bug exists” and “working exploit against popular software” is shrinking, so the time between “patch released” and “patch deployed” needs to shrink with it.",
+      },
+      { t: "h", x: "Final thoughts" },
+      {
+        t: "p",
+        x: "PHP2Shell is not a clever new class of attack. It is an old one, memory exhaustion leaving dangling state behind, that was reported, downgraded, rediscovered, left unproven and finally chained into something serious. The leak turned a coordinated disclosure into a race, and the public write-ups mean the race is now on for everyone who has not updated.",
+      },
+      {
+        t: "p",
+        x: "So: check your PHP version today, including the boxes you forgot you had, patch what faces the internet first, and watch for web workers spawning shells. I'll update this post if confirmed indicators or in-the-wild exploitation details get published.",
+      },
+      { t: "h", x: "Sources" },
+      {
+        t: "list",
+        x: [
+          "Huntress (John Hammond): huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities",
+          "Calif (Ryan Austin, with a comic by Michal Zalewski): calif.io/php2shell",
+          "Wiz Research: wiz.io/blog/php2shell-php-rce",
+        ],
+      },
+    ],
+  },
 ]
 
 export function byId(id: string): Article {
